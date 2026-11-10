@@ -83,6 +83,8 @@ Combinações a avaliar: 3 heroes × 2 paletas = 6 prévias. Sugestão: decidir 
 
 ## 3. Decisões (respondidas em 2026-11-10)
 
+Paleta final: **A "Phosphor"** (escolhida na fase 4).
+
 | # | Decisão | Escolha |
 | - | --- | --- |
 | D1 | Estrutura do repositório | Next.js na **raiz** do repositório, no lugar de `app/` (igual ao Dunkode). O site Vite fica no histórico do git. Branch `feat/next-3d`. |
@@ -125,7 +127,8 @@ Combinações a avaliar: 3 heroes × 2 paletas = 6 prévias. Sugestão: decidir 
 ### Fase 4 · Hero 1 (`cluster`) nas duas paletas
 - [x] Malha de nós instanciada (`InstancedMesh`), 72 mensagens correndo pelas arestas camada a camada (borda → APIs → serviços → broker → workers → dados), bloom. O cursor afasta os nós e o clique dispara uma onda de "evento". `components/three/cluster/`.
 - [x] Coreografia do scroll: caos → arquitetura, com o fecho "Do caos à arquitetura." em HTML (no lugar do nome formado em 3D). No celular a arquitetura gira 90° e as camadas descem; com movimento desligado, já aparece organizada ao lado do texto.
-- [ ] **Marco: escolher a paleta (A ou B).**
+- [x] Efeitos 3D reforçados (pedido do Bruno: "faltou efeitos em 3D"): nós de vidro iluminados com núcleo aceso, luzes coloridas orbitando, câmera que mergulha na malha e acompanha o mouse, mensagens como rastros de luz, poeira digital em profundidade, neblina, bloom e aberração cromática pulsando no clique.
+- [x] **Marco: paleta escolhida — A "Phosphor"** (10/11/2026). A paleta B e o seletor foram removidos do código.
 
 ### Fase 5 · Jornada do pacote + seções 3D
 - [ ] Canvas fixo transparente + vagas `data-packet-slot` (`entry`, `pipeline`, `orbit`, `handshake`).

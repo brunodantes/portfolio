@@ -58,10 +58,9 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { themeColor: "#08090C" };
 
-// Roda antes da primeira pintura, para a página não piscar:
-// 1. paleta: `?palette=a|b` na URL tem prioridade e fica salva; senão usa a última escolhida;
-// 2. preferências salvas (idioma e movimento) em `pf:prefs`, ver lib/preferences.ts.
-const bootScript = `try{var d=document.documentElement,q=new URLSearchParams(location.search).get('palette');if(q==='a'||q==='b')localStorage.setItem('pf:palette',q);var p=localStorage.getItem('pf:palette');if(p==='b')d.dataset.palette='b';var s=JSON.parse(localStorage.getItem('pf:prefs')||'{}');var m=typeof s.motion==='boolean'?s.motion:!matchMedia('(prefers-reduced-motion: reduce)').matches;d.dataset.motion=m?'on':'off';if(s.locale==='en')d.lang='en'}catch(e){}`;
+// Roda antes da primeira pintura, para a página não piscar: aplica as preferências salvas
+// (idioma e movimento) em `pf:prefs`, ver lib/preferences.ts.
+const bootScript = `try{var d=document.documentElement;var s=JSON.parse(localStorage.getItem('pf:prefs')||'{}');var m=typeof s.motion==='boolean'?s.motion:!matchMedia('(prefers-reduced-motion: reduce)').matches;d.dataset.motion=m?'on':'off';if(s.locale==='en')d.lang='en'}catch(e){}`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

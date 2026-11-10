@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 /*
- * Duas paletas em comparação (PLANO.md): A "Phosphor" (padrão) e B "Dunkode".
- * A paleta vem de `data-palette` no <html> (aplicado antes da primeira pintura, ver app/layout.tsx).
+ * Paleta "Phosphor" (escolhida em 10/11/2026 entre A Phosphor e B Dunkode; ver PLANO.md).
+ * Os valores ficam espelhados em lib/palette.ts para as cenas 3D.
  * Componentes usam só os nomes semânticos abaixo (`bg-surface`, `text-accent`…), nunca hex solto.
  */
 :root {
@@ -22,25 +22,6 @@
   --p-signal: #38e1ff;
   --p-signal-text: #b4f2ff;
   --p-warn: #ffb020;
-}
-
-:root[data-palette="b"] {
-  --p-deep: #070a16;
-  --p-bg: #0b1020;
-  --p-surface: #121830;
-  --p-raised: #192140;
-  --p-title: #f7f8fc;
-  --p-body: #c9ccda;
-  --p-muted: #9aa0b8;
-  --p-faint: #4a5070;
-  --p-code: #9aa0b8;
-  --p-accent: #8b5cf6;
-  --p-accent-hover: #a78bfa;
-  --p-accent-text: #a78bfa;
-  --p-on-accent: #f7f8fc;
-  --p-signal: #c4b5fd;
-  --p-signal-text: #ede9fe;
-  --p-warn: #fcd34d;
 }
 
 @theme inline {
