@@ -1,0 +1,14 @@
+# O que não vai para a Vercel no `vercel deploy`.
+# A CLI não lê o .gitignore, então os ignorados ficam listados aqui.
+node_modules
+.next
+out
+.vercel
+.env*
+!.env.example
+*.tsbuildinfo
+next-env.d.ts
+_design_handoff
+AGENTS.md
+CLAUDE.md
+README.md
