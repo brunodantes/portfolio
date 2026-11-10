@@ -1,50 +1,88 @@
-import type { Metadata } from "next";
-import { Instrument_Sans, Newsreader } from "next/font/google";
+import Script from "next/script";
+import type { Metadata, Viewport } from "next";
+import { JetBrains_Mono, Michroma, Sora } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import CodeBackdrop from "@/components/CodeBackdrop";
+import CursorHalo from "@/components/CursorHalo";
+import SkipLink from "@/components/SkipLink";
 import { siteConfig } from "@/lib/site-data";
 import "./globals.css";
 
-// Fontes provisórias: troque pelas definidas na direção visual do projeto.
-const display = Newsreader({
+const display = Michroma({
   variable: "--font-display-face",
   subsets: ["latin"],
-  style: ["normal", "italic"],
-  axes: ["opsz"],
+  weight: "400",
 });
 
-const sans = Instrument_Sans({
+const sans = Sora({
   variable: "--font-sans-face",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["300", "400", "500", "600", "700"],
+});
+
+const mono = JetBrains_Mono({
+  variable: "--font-mono-face",
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: { default: siteConfig.title, template: `%s — ${siteConfig.name}` },
   description: siteConfig.description,
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
-    siteName: siteConfig.name,
+    siteName: `${siteConfig.name} Portfolio`,
     title: siteConfig.title,
-    description: siteConfig.description,
+    description: siteConfig.ogDescription,
     locale: siteConfig.ogLocale,
+    images: [
+      {
+        url: "/og-preview.png",
+        width: 1200,
+        height: 630,
+        alt: "Preview visual do portfólio de Bruno Almeida com interface HUD de engenharia, nuvem, código e telemetria.",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.title,
+    description: siteConfig.ogDescription,
+    images: ["/og-preview.png"],
   },
 };
 
+export const viewport: Viewport = { themeColor: "#08090C" };
+
+// Roda antes da primeira pintura, para a página não piscar:
+// 1. paleta: `?palette=a|b` na URL tem prioridade e fica salva; senão usa a última escolhida;
+// 2. preferências salvas (idioma e movimento) em `pf:prefs`, ver lib/preferences.ts.
+const bootScript = `try{var d=document.documentElement,q=new URLSearchParams(location.search).get('palette');if(q==='a'||q==='b')localStorage.setItem('pf:palette',q);var p=localStorage.getItem('pf:palette');if(p==='b')d.dataset.palette='b';var s=JSON.parse(localStorage.getItem('pf:prefs')||'{}');var m=typeof s.motion==='boolean'?s.motion:!matchMedia('(prefers-reduced-motion: reduce)').matches;d.dataset.motion=m?'on':'off';if(s.locale==='en')d.lang='en'}catch(e){}`;
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang={siteConfig.lang} className={`${display.variable} ${sans.variable}`}>
-      <body className="bg-paper font-sans text-ink antialiased">
-        <a
-          href="#conteudo"
-          className="fixed -top-24 left-4 z-50 rounded-b-xl bg-ink px-4 py-3 text-sm text-paper focus:top-0"
-        >
-          Pular para o conteúdo
-        </a>
-        <Header />
-        <main id="conteudo">{children}</main>
-        <Footer />
+    <html
+      lang={siteConfig.lang}
+      className={`${display.variable} ${sans.variable} ${mono.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        <Script id="boot" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: bootScript }} />
+      </head>
+      <body className="relative min-h-screen bg-bg font-sans text-body antialiased">
+        <SkipLink />
+        <CodeBackdrop />
+        <CursorHalo />
+        <div className="relative z-10 flex min-h-screen flex-col">
+          <Header />
+          <main id="conteudo" className="flex-1">
+            {children}
+          </main>
+          <Footer />
+        </div>
       </body>
     </html>
   );

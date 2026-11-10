@@ -33,12 +33,12 @@ Ao concluir um item, marque `[x]`.
 
 **Problemas encontrados (corrigir na migração)**
 
-- [ ] **Datas divergentes entre PT e EN** em `data.js`. Confirmadas: Itaú `Mar 2026 — Atual`, BTG `Jun 2023 — Mar 2026`, Sinqia `Jan 2018 — Jun 2023`, Nestlé `Dez 2016 — Dez 2017`. Aplicar nas duas línguas.
-- [ ] **Bullets divergentes na BTG**. Confirmado: o certo é **S3 + RDS** (corrigir o EN, que diz SES), e o item "Modeled the orchestration of executions…" entra também no PT: "Modelagem da orquestração de execuções compostas por múltiplos documentos, com regras de conclusão, controle de estado do processamento e fluxo automatizado de distribuição dos arquivos."
+- [x] **Datas divergentes entre PT e EN** em `data.js`. Confirmadas: Itaú `Mar 2026 — Atual`, BTG `Jun 2023 — Mar 2026`, Sinqia `Jan 2018 — Jun 2023`, Nestlé `Dez 2016 — Dez 2017`. Aplicar nas duas línguas.
+- [x] **Bullets divergentes na BTG**. Confirmado: o certo é **S3 + RDS** (corrigir o EN, que diz SES), e o item "Modeled the orchestration of executions…" entra também no PT: "Modelagem da orquestração de execuções compostas por múltiplos documentos, com regras de conclusão, controle de estado do processamento e fluxo automatizado de distribuição dos arquivos."
 - [ ] **Deploy quebrado/indefinido**: o canonical aponta para `brunodantes.github.io/portifolio/`, mas não há workflow de Pages e o Vite não tem `base: '/portifolio/'` (os assets em `/assets/...` quebrariam num subcaminho).
 - [x] **Dois clones**: este (`~/Github/Repos/portfolio`, remoto `brunodantes/portfolio`) é o oficial. O clone antigo `~/Github/Repos/portifolio` foi para a lixeira.
 - [x] **Tema claro/escuro em andamento** (não commitado): `app/src/context/ThemeContext.jsx`, botão Light/Dark no `App.jsx` e mudanças em `colors.css`. Decisão: **descartar**. O site novo é só escuro, com as paletas A/B.
-- [ ] Idioma por estado React (`useState('pt')`). Decisão: **manter o botão PT/EN** numa URL só (só o PT é indexado pelo Google); lembrar a escolha no `localStorage`.
+- [x] Idioma por estado React (`useState('pt')`). Decisão: **manter o botão PT/EN** numa URL só (só o PT é indexado pelo Google); lembrar a escolha no `localStorage`.
 
 ---
 
@@ -75,7 +75,7 @@ Implementadas como tema por `data-theme` no `<html>`, com tokens CSS **e** um `l
 | Acento | `#3BE87F` verde fósforo | `#8b5cf6` violeta |
 | Secundária | `#38E1FF` ciano telemetria | `#c4b5fd` lavanda |
 | Texto | `#ECF1F0` | `#f7f8fc` snow / `#c9ccda` body |
-| Fontes | Michroma + Sora + JetBrains Mono | Sora + Inter + mono |
+| Fontes | Michroma + Sora + JetBrains Mono (as mesmas nas duas, para comparar só a cor) | idem |
 
 Combinações a avaliar: 3 heroes × 2 paletas = 6 prévias. Sugestão: decidir primeiro a paleta com o hero 1 pronto e só então montar os heroes 2 e 3.
 
@@ -110,11 +110,11 @@ Combinações a avaliar: 3 heroes × 2 paletas = 6 prévias. Sugestão: decidir 
 - [x] `next.config.mjs` com cabeçalhos de segurança.
 
 ### Fase 2 · Conteúdo e design system
-- [ ] `lib/site-data.ts` tipado (`lib/types.ts`) a partir de `data.js`, com as datas corrigidas.
-- [ ] Página única com seletor PT/EN (lembrado no `localStorage`, `lang` do `<html>` atualizado); `metadata`, `sitemap.ts` e `robots.ts` em PT.
-- [ ] Tokens das duas paletas em `globals.css` + `lib/palette.ts`; fontes via `next/font/google`.
-- [ ] Portar componentes: HudPanel, Card, Tag, Badge, StatReadout, XpBar, SectionHeading, TopNav, Marquee, TypedLines, CursorHalo, CodeBackdrop. Trocar o `Button` pelo `FxButton` do Dunkode.
-- [ ] Seções em 2D funcionando de ponta a ponta (Hero, Trajetória, Stack, Contato, Footer). **Marco: o site novo já substitui o atual sem 3D.**
+- [x] `lib/site-data.ts` tipado (`lib/types.ts`) a partir de `data.js`, com as datas corrigidas.
+- [x] Página única com seletor PT/EN (lembrado no `localStorage`, `lang` do `<html>` atualizado); `metadata`, `sitemap.ts` e `robots.ts` em PT.
+- [x] Tokens das duas paletas em `globals.css` + `lib/palette.ts`; fontes via `next/font/google`.
+- [x] Portar componentes: HudPanel, Card, Tag, Badge, StatReadout, XpBar, SectionHeading, TopNav, Marquee, TypedLines, CursorHalo, CodeBackdrop. Trocar o `Button` pelo `FxButton` do Dunkode.
+- [x] Seções em 2D funcionando de ponta a ponta (Hero, Trajetória, Stack, Contato, Footer). **Marco: o site novo já substitui o atual sem 3D.**
 
 ### Fase 3 · Infra 3D (copiada do Dunkode)
 - [ ] `device.ts`, `use-reduced-motion.ts`, `SmoothScroll` (Lenis), `Reveal`, `Stage`.

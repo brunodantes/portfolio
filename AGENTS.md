@@ -12,12 +12,12 @@ Next.js (App Router) + React 19 + TypeScript + Tailwind CSS v4. Sem biblioteca d
 
 ## Convenções
 
-- **Conteúdo em dados**: textos, links, listas e contatos ficam em `lib/site-data.ts`. Componentes só leem esses dados; para editar copy, altere o arquivo de dados.
-- **Tokens visuais**: cores e fontes ficam no bloco `@theme` de `app/globals.css` (`bg-paper`, `text-ink`, `text-accent`…). Não use cores hex soltas nos componentes.
-- **Fontes**: carregadas com `next/font/google` em `app/layout.tsx` e expostas como `--font-display-face` / `--font-sans-face`.
-- **Server Components por padrão**: use `"use client"` apenas em componentes com estado ou eventos (Header, Faq, Reveal).
-- **Animação de entrada**: envolva seções em `<Reveal>`. O CSS só esconde o conteúdo quando há JavaScript e sem "reduzir movimento".
-- **Imagens ausentes**: use `<Placeholder label="…" />` até receber o asset final; depois troque por `next/image` com arquivos em `public/`.
+- **Conteúdo em dados**: textos, links e listas ficam em `lib/site-data.ts`, nos dois idiomas (`content.pt` / `content.en`). Componentes só leem esses dados; para editar copy, altere o arquivo de dados nas duas línguas.
+- **Idioma e movimento**: preferências do visitante em `lib/preferences.ts` (`useContent()`, `usePreferences()`, `setPreferences()`), salvas no `localStorage`. O HTML estático sai em PT. Uma URL só, com botão PT/EN (decisão D4 do `PLANO.md`).
+- **Paletas**: A "Phosphor" (padrão) e B "Dunkode", definidas por `--p-*` em `app/globals.css` e trocadas por `data-palette` no `<html>` (`?palette=a|b`). Componentes usam só os nomes semânticos do `@theme` (`bg-surface`, `text-accent-text`, `border-line`…), nunca hex solto.
+- **Fontes**: `next/font/google` em `app/layout.tsx`: Michroma (`font-display`, títulos em caixa alta), Sora (`font-sans`) e JetBrains Mono (`font-mono`, só para valores técnicos: períodos, tags, níveis).
+- **Componentes**: peças de UI em `components/ui/` (HudPanel, Tag, XpBar, FxButton…), seções da página em `components/sections/`. As seções são client components porque leem o idioma escolhido.
+- **Movimento**: tudo que anima respeita `data-motion="off"` (switch "Movimento" no contato) e "reduzir movimento" do sistema.
 - **Cenas 3D**: ficam em `components/three/<cena>/`, carregadas com `next/dynamic` (`ssr: false`), e seguem as skills `r3f-*` de `.claude/skills/`. O ESLint desliga `react-hooks/immutability`, `purity` e `use-memo` só em `components/three/**`, porque mutar objetos do Three.js no `useFrame` é o padrão do R3F. Toda cena precisa de alternativa sem WebGL e com "reduzir movimento".
 - **Plano do projeto**: `PLANO.md` (fases, decisões e checklist).
 - **Acessibilidade**: link "pular para o conteúdo", `aria-expanded` no menu, Esc fecha o menu, foco visível, links externos com `rel="noopener noreferrer"`.

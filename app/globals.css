@@ -1,51 +1,120 @@
 @import "tailwindcss";
 
-/* Tokens do site. Troque os valores pela identidade do projeto. */
+/*
+ * Duas paletas em comparação (PLANO.md): A "Phosphor" (padrão) e B "Dunkode".
+ * A paleta vem de `data-palette` no <html> (aplicado antes da primeira pintura, ver app/layout.tsx).
+ * Componentes usam só os nomes semânticos abaixo (`bg-surface`, `text-accent`…), nunca hex solto.
+ */
+:root {
+  --p-deep: #08090c;
+  --p-bg: #0c0d10;
+  --p-surface: #12141a;
+  --p-raised: #181b22;
+  --p-title: #ecf1f0;
+  --p-body: #cbd4d2;
+  --p-muted: #8a9592;
+  --p-faint: #4c5551;
+  --p-code: #a9b4b2;
+  --p-accent: #3be87f;
+  --p-accent-hover: #b4ffcd;
+  --p-accent-text: #3be87f;
+  --p-on-accent: #08090c;
+  --p-signal: #38e1ff;
+  --p-signal-text: #b4f2ff;
+  --p-warn: #ffb020;
+}
+
+:root[data-palette="b"] {
+  --p-deep: #070a16;
+  --p-bg: #0b1020;
+  --p-surface: #121830;
+  --p-raised: #192140;
+  --p-title: #f7f8fc;
+  --p-body: #c9ccda;
+  --p-muted: #9aa0b8;
+  --p-faint: #4a5070;
+  --p-code: #9aa0b8;
+  --p-accent: #8b5cf6;
+  --p-accent-hover: #a78bfa;
+  --p-accent-text: #a78bfa;
+  --p-on-accent: #f7f8fc;
+  --p-signal: #c4b5fd;
+  --p-signal-text: #ede9fe;
+  --p-warn: #fcd34d;
+}
+
 @theme inline {
-  --font-display: var(--font-display-face), Georgia, serif;
-  --font-sans: var(--font-sans-face), system-ui, sans-serif;
+  --font-display: var(--font-display-face), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-sans-face), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono-face), ui-monospace, SFMono-Regular, monospace;
 
-  --color-paper: #faf8f4;
-  --color-alt: #f2eee6;
-  --color-surface: #ffffff;
+  --color-deep: var(--p-deep);
+  --color-bg: var(--p-bg);
+  --color-surface: var(--p-surface);
+  --color-raised: var(--p-raised);
+  --color-title: var(--p-title);
+  --color-body: var(--p-body);
+  --color-muted: var(--p-muted);
+  --color-faint: var(--p-faint);
+  --color-accent: var(--p-accent);
+  --color-accent-hover: var(--p-accent-hover);
+  --color-accent-text: var(--p-accent-text);
+  --color-on-accent: var(--p-on-accent);
+  --color-signal: var(--p-signal);
+  --color-signal-text: var(--p-signal-text);
+  --color-warn: var(--p-warn);
 
-  --color-ink: #1f2421;
-  --color-body: #4f5752;
-  --color-soft: #747b76;
-  --color-eyebrow: #9a6b4f;
+  --color-line: color-mix(in oklab, var(--p-title) 10%, transparent);
+  --color-line-strong: color-mix(in oklab, var(--p-title) 18%, transparent);
+  --color-line-bright: color-mix(in oklab, var(--p-title) 30%, transparent);
+  --color-accent-soft: color-mix(in oklab, var(--p-accent) 16%, transparent);
+  --color-signal-soft: color-mix(in oklab, var(--p-signal) 14%, transparent);
+}
 
-  --color-accent: #2f5d50;
-  --color-accent-strong: #234539;
-  --color-highlight: #c0673f;
-
-  --color-line: #e3ddd2;
-  --color-line-strong: #cfc6b8;
+/* Espaçamentos da página. */
+@utility px-page {
+  padding-inline: clamp(16px, 4vw, 48px);
+}
+@utility py-section {
+  padding-block: clamp(80px, 13vh, 128px);
+}
+/* Painel HUD com cantos cortados. */
+@utility clip-bevel {
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+}
+/* Rótulo de telemetria: só para valores medidos (períodos, níveis, estados). */
+@utility hud {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.45;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+@utility glow-accent {
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--p-accent) 45%, transparent),
+    0 0 26px -6px color-mix(in oklab, var(--p-accent) 70%, transparent);
+}
+@utility text-glow {
+  text-shadow: 0 0 18px color-mix(in oklab, var(--p-accent) 55%, transparent);
 }
 
 @layer base {
   html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 96px;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
+    scroll-padding-top: 80px;
+    background: var(--p-bg);
+    color-scheme: dark;
   }
 
   body {
-    background: var(--color-paper);
-  }
-
-  a {
-    color: var(--color-accent);
-    text-decoration: none;
+    background: var(--p-bg);
+    color: var(--p-body);
   }
 
   h1,
   h2,
   h3 {
+    color: var(--p-title);
     text-wrap: balance;
   }
 
@@ -53,24 +122,271 @@
     text-wrap: pretty;
   }
 
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
   :focus-visible {
-    outline: 3px solid var(--color-highlight);
-    outline-offset: 4px;
+    outline: 2px solid var(--p-accent);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--p-accent) 40%, transparent);
+    color: var(--p-title);
   }
 }
 
-/* Sem JavaScript ou com "reduzir movimento", o conteúdo aparece normalmente. */
-@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
-  [data-reveal] {
+/* "Movimento" desligado (preferência do site ou do sistema): sem animações em loop. */
+:root[data-motion="off"] *,
+:root[data-motion="off"] *::before,
+:root[data-motion="off"] *::after {
+  animation-play-state: paused !important;
+  transition-duration: 0.01ms !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Lenis (scroll suave) */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes caret {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
     opacity: 0;
-    translate: 0 24px;
-    transition:
-      opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-      translate 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+@keyframes code-drift {
+  to {
+    transform: translateY(-50%);
+  }
+}
+@keyframes pulse-dot {
+  0%,
+  100% {
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--p-accent) 22%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 7px color-mix(in oklab, var(--p-accent) 0%, transparent);
+  }
+}
+
+@layer components {
+  /* Fundo de código .NET rolando (components/CodeBackdrop.tsx). */
+  .code-col {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1.7;
+    white-space: pre;
+    animation: code-drift var(--cb-speed) linear infinite;
+    animation-delay: var(--cb-delay);
+  }
+  .code-sheet-dim {
+    mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 72%, transparent 100%);
+  }
+  .code-sheet-bright {
+    mask-image: radial-gradient(240px circle at var(--cb-x, -999px) var(--cb-y, -999px), #000 0%, transparent 70%);
   }
 
-  [data-reveal].is-visible {
+  .typed-caret {
+    display: inline-block;
+    width: 0.56em;
+    height: 0.9em;
+    margin-left: 0.12em;
+    vertical-align: -0.06em;
+    background: var(--p-accent);
+    animation: caret 1s steps(1, end) infinite;
+  }
+
+  .marquee-track {
+    animation: marquee 32s linear infinite;
+  }
+
+  .pulse-dot {
+    animation: pulse-dot 2.2s ease-in-out infinite;
+  }
+}
+
+@property --fx-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+@keyframes fx-beam {
+  to {
+    --fx-angle: 360deg;
+  }
+}
+
+/* ───────────── Botões vivos (components/FxButton.tsx), adaptados do dunkode-site ───────────── */
+@layer components {
+  .fx-btn {
+    --fx-tx: 0px;
+    --fx-ty: 0px;
+    --fx-lx: 0px;
+    --fx-ly: 0px;
+    --fx-bg: var(--p-accent);
+    --fx-fg: var(--p-on-accent);
+    --fx-fill: var(--p-accent-hover);
+    --fx-fill-fg: var(--p-on-accent);
+    --fx-beam: color-mix(in oklab, var(--p-title) 90%, transparent);
+    --fx-glow: color-mix(in oklab, var(--p-accent) 55%, transparent);
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55em;
+    overflow: hidden;
+    border-radius: 6px;
+    padding: 14px 24px;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.2;
+    white-space: nowrap;
+    cursor: pointer;
+    background: var(--fx-bg);
+    color: var(--fx-fg);
+    translate: var(--fx-tx) var(--fx-ty);
+    box-shadow: 3px 3px 0 0 var(--p-deep);
+    transition:
+      translate 0.75s cubic-bezier(0.2, 1.6, 0.4, 1),
+      scale 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+      box-shadow 0.35s ease,
+      color 0.35s ease;
+  }
+  .fx-btn[data-magnet="on"] {
+    transition:
+      translate 0.18s cubic-bezier(0.2, 0.8, 0.2, 1),
+      scale 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+      box-shadow 0.35s ease,
+      color 0.35s ease;
+  }
+  .fx-btn:hover,
+  .fx-btn:focus-visible {
+    color: var(--fx-fill-fg);
+    box-shadow:
+      5px 5px 0 0 var(--p-deep),
+      0 0 0 1px color-mix(in oklab, var(--fx-beam) 35%, transparent),
+      0 14px 40px -12px var(--fx-glow);
+  }
+  .fx-btn:active {
+    scale: 0.96;
+  }
+  .fx-sm {
+    padding: 8px 14px;
+    font-size: 14px;
+  }
+  .fx-lg {
+    padding: 16px 28px;
+    font-size: 16px;
+  }
+
+  /* Preenchimento que nasce de onde o cursor entrou. */
+  .fx-fill {
+    position: absolute;
+    z-index: -1;
+    left: var(--fx-x, 50%);
+    top: var(--fx-y, 50%);
+    width: 260%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--fx-fill);
+    translate: -50% -50%;
+    scale: 0;
+    transition: scale 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    pointer-events: none;
+  }
+  .fx-btn:hover .fx-fill,
+  .fx-btn:focus-visible .fx-fill {
+    scale: 1;
+  }
+
+  .fx-label,
+  .fx-icon {
+    position: relative;
+    display: inline-flex;
+    translate: var(--fx-lx) var(--fx-ly);
+    transition: translate 0.75s cubic-bezier(0.2, 1.6, 0.4, 1);
+  }
+  .fx-btn[data-magnet="on"] .fx-label,
+  .fx-btn[data-magnet="on"] .fx-icon {
+    transition-duration: 0.18s;
+  }
+
+  /* Feixe de luz correndo pela borda; acelera e acende no hover. */
+  .fx-btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    padding: var(--fx-ring, 1px);
+    background: conic-gradient(
+      from var(--fx-angle),
+      transparent 0deg,
+      var(--fx-beam) 40deg,
+      transparent 95deg,
+      transparent 180deg,
+      var(--fx-beam) 220deg,
+      transparent 275deg
+    );
+    mask:
+      linear-gradient(#000 0 0) content-box exclude,
+      linear-gradient(#000 0 0);
+    opacity: 0.45;
+    animation: fx-beam 4.5s linear infinite;
+    transition:
+      opacity 0.35s ease,
+      padding 0.35s ease;
+    pointer-events: none;
+  }
+  .fx-btn:hover::before,
+  .fx-btn:focus-visible::before {
+    --fx-ring: 1.5px;
     opacity: 1;
-    translate: none;
+    animation-duration: 1.6s;
+  }
+
+  .fx-secondary {
+    --fx-bg: var(--p-raised);
+    --fx-fg: var(--p-title);
+    --fx-fill: var(--p-surface);
+    --fx-fill-fg: var(--p-title);
+    --fx-beam: var(--p-accent);
+    --fx-glow: color-mix(in oklab, var(--p-accent) 30%, transparent);
+  }
+  .fx-ghost {
+    --fx-bg: transparent;
+    --fx-fg: var(--p-body);
+    --fx-fill: color-mix(in oklab, var(--p-title) 7%, transparent);
+    --fx-fill-fg: var(--p-title);
+    --fx-beam: var(--p-signal);
+    --fx-glow: transparent;
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--p-title) 14%, transparent);
   }
 }
