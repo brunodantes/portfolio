@@ -92,6 +92,15 @@ export type Content = {
       motion: string;
     };
     notFound: { title: string; lead: string; back: string };
+    /** Textos dos mundos 3D (/mundos). */
+    worlds: {
+      originTitle: string;
+      originLead: string;
+      scrollHint: string;
+      more: string;
+      less: string;
+      chapters: string;
+    };
   };
   builds: string[];
   stats: Stat[];

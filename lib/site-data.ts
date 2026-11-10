@@ -231,6 +231,14 @@ const pt: Content = {
       lead: "O endereço pode ter mudado ou foi digitado errado.",
       back: "Voltar para o início",
     },
+    worlds: {
+      originTitle: "Origem",
+      originLead: "Antes do código, circuitos: a formação técnica em eletrônica e a graduação em gestão de TI.",
+      scrollHint: "Role para percorrer",
+      more: "Ver tudo",
+      less: "Ver menos",
+      chapters: "Capítulos",
+    },
   },
   builds: [
     "sistemas distribuídos",
@@ -359,6 +367,14 @@ const en: Content = {
       title: "This route doesn't exist.",
       lead: "The address may have changed or was mistyped.",
       back: "Back to home",
+    },
+    worlds: {
+      originTitle: "Origin",
+      originLead: "Before code, circuits: a technical degree in electronics and a degree in IT management.",
+      scrollHint: "Scroll to travel",
+      more: "Show all",
+      less: "Show less",
+      chapters: "Chapters",
     },
   },
   builds: [

@@ -18,7 +18,7 @@ Next.js (App Router) + React 19 + TypeScript + Tailwind CSS v4. Sem biblioteca d
 - **Fontes**: `next/font/google` em `app/layout.tsx`: Michroma (`font-display`, títulos em caixa alta), Sora (`font-sans`) e JetBrains Mono (`font-mono`, só para valores técnicos: períodos, tags, níveis).
 - **Componentes**: peças de UI em `components/ui/` (HudPanel, Tag, XpBar, FxButton…), seções da página em `components/sections/`. As seções são client components porque leem o idioma escolhido.
 - **Movimento**: tudo que anima respeita `data-motion="off"` (switch "Movimento" no contato) e "reduzir movimento" do sistema.
-- **Cenas 3D**: ficam em `components/three/<cena>/`, carregadas com `next/dynamic` (`ssr: false`), e seguem as skills `r3f-*` de `.claude/skills/`. O ESLint desliga `react-hooks/immutability`, `purity` e `use-memo` só em `components/three/**`, porque mutar objetos do Three.js no `useFrame` é o padrão do R3F. Toda cena precisa de alternativa sem WebGL e com "reduzir movimento".
+- **Cenas 3D**: ficam em `components/three/<cena>/`, carregadas com `next/dynamic` (`ssr: false`), e seguem as skills `r3f-*` de `.claude/skills/`. O ESLint desliga `react-hooks/immutability`, `purity` e `use-memo` só em `components/three/**` e `components/worlds/**`, porque mutar objetos do Three.js no `useFrame` é o padrão do R3F. Toda cena precisa de alternativa sem WebGL e com "reduzir movimento".
 - **Plano do projeto**: `PLANO.md` (fases, decisões e checklist).
 - **Acessibilidade**: link "pular para o conteúdo", `aria-expanded` no menu, Esc fecha o menu, foco visível, links externos com `rel="noopener noreferrer"`.
 

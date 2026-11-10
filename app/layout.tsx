@@ -1,12 +1,7 @@
 import Script from "next/script";
 import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Michroma, Sora } from "next/font/google";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import CodeBackdrop from "@/components/CodeBackdrop";
-import CursorHalo from "@/components/CursorHalo";
 import SkipLink from "@/components/SkipLink";
-import SmoothScroll from "@/components/SmoothScroll";
 import { siteConfig } from "@/lib/site-data";
 import "./globals.css";
 
@@ -74,16 +69,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="relative min-h-screen bg-bg font-sans text-body antialiased">
         <SkipLink />
-        <CodeBackdrop />
-        <CursorHalo />
-        <SmoothScroll />
-        <div className="relative z-10 flex min-h-screen flex-col">
-          <Header />
-          <main id="conteudo" className="flex-1">
-            {children}
-          </main>
-          <Footer />
-        </div>
+        {children}
       </body>
     </html>
   );

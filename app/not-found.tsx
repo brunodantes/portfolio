@@ -1,5 +1,9 @@
 import NotFoundContent from "@/components/NotFoundContent";
 
 export default function NotFound() {
-  return <NotFoundContent />;
+  return (
+    <main id="conteudo">
+      <NotFoundContent />
+    </main>
+  );
 }
