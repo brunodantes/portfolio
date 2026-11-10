@@ -6,15 +6,22 @@ import HudPanel from "../ui/HudPanel";
 import StatReadout from "../ui/StatReadout";
 import Tag from "../ui/Tag";
 import TypedLines from "../ui/TypedLines";
+import Stage from "../three/stage/Stage";
+import { heroScenes } from "../three/hero-scenes";
 import { playerStack } from "@/lib/site-data";
 import { useContent } from "@/lib/preferences";
+import type { HeroVariant } from "@/lib/types";
 
-export default function Hero() {
+export default function Hero({ variant = "hud" }: { variant?: HeroVariant }) {
+  const scene = heroScenes[variant];
   const { player, ui, builds, stats } = useContent();
   const t = ui.hero;
 
   return (
-    <section id="inicio" className="relative overflow-hidden border-b border-line px-page pt-16 pb-14 md:pt-24 md:pb-20">
+    <section
+      id="inicio"
+      className="relative overflow-hidden border-b border-line px-page pt-16 pb-14 md:pt-24 md:pb-20"
+    >
       <div
         aria-hidden
         className="absolute -inset-16 [background-image:linear-gradient(var(--color-line)_1px,transparent_1px),linear-gradient(90deg,var(--color-line)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(120%_80%_at_50%_10%,#000,transparent_72%)]"
@@ -67,23 +74,33 @@ export default function Hero() {
           </ul>
         </div>
 
-        {/* Palco do hero: recebe a cena 3D nas próximas fases (PLANO.md, fase 4). */}
-        <div data-stage="hero">
-          <HudPanel label={t.panelLabel} right={player.level} glow>
-            <div className="grid grid-cols-2 gap-6">
-              {stats.map((stat) => (
-                <StatReadout key={stat.label} {...stat} />
-              ))}
-            </div>
-            <div className="mt-6 flex flex-wrap gap-2 border-t border-line pt-5">
-              {playerStack.map((tech) => (
-                <Tag key={tech.label} icon={tech.icon}>
-                  {tech.label}
-                </Tag>
-              ))}
-            </div>
-          </HudPanel>
-        </div>
+        {/* Palco do hero: a cena 3D da direção escolhida, ou o painel de stats no HUD 2D. */}
+        {scene ? (
+          <Stage
+            scene={scene}
+            className="aspect-square w-full max-w-[520px] justify-self-center [mask-image:radial-gradient(closest-side,#000_72%,transparent)]"
+            fallback={
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,var(--color-accent-soft),transparent_60%)]" />
+            }
+          />
+        ) : (
+          <div data-stage="hero">
+            <HudPanel label={t.panelLabel} right={player.level} glow>
+              <div className="grid grid-cols-2 gap-6">
+                {stats.map((stat) => (
+                  <StatReadout key={stat.label} {...stat} />
+                ))}
+              </div>
+              <div className="mt-6 flex flex-wrap gap-2 border-t border-line pt-5">
+                {playerStack.map((tech) => (
+                  <Tag key={tech.label} icon={tech.icon}>
+                    {tech.label}
+                  </Tag>
+                ))}
+              </div>
+            </HudPanel>
+          </div>
+        )}
       </div>
     </section>
   );

@@ -117,10 +117,10 @@ Combinações a avaliar: 3 heroes × 2 paletas = 6 prévias. Sugestão: decidir 
 - [x] Seções em 2D funcionando de ponta a ponta (Hero, Trajetória, Stack, Contato, Footer). **Marco: o site novo já substitui o atual sem 3D.**
 
 ### Fase 3 · Infra 3D (copiada do Dunkode)
-- [ ] `device.ts`, `use-reduced-motion.ts`, `SmoothScroll` (Lenis), `Reveal`, `Stage`.
-- [ ] Progresso do scroll por ref + variável CSS `--p` (sem re-render); cenas via `next/dynamic` com `ssr: false`.
-- [ ] Rota `/conceitos/[variant]` com seletor de hero **e** de paleta.
-- [ ] Componente `Packet` compartilhado (o pacote de dados) em `components/three/shared/`.
+- [x] `device.ts`, `SmoothScroll` (Lenis) e `Stage`. O "reduzir movimento" vem do `usePreferences().motion` (switch do site + sistema); `Reveal` não foi usado.
+- [x] Progresso do scroll por ref + variável CSS `--p` (sem re-render); cenas via `next/dynamic` com `ssr: false`.
+- [x] Rota `/conceitos/[variant]` com seletor de hero **e** de paleta.
+- [x] Componente `Packet` compartilhado (o pacote de dados) em `components/three/shared/`, com prévia em `/conceitos/pacote`. As cores 3D vêm de `lib/palette.ts` (`usePalette()`), trocando ao vivo com a paleta.
 
 ### Fase 4 · Hero 1 (`cluster`) nas duas paletas
 - [ ] Malha de nós instanciada (`InstancedMesh`), partículas de mensagem em shader, bloom.

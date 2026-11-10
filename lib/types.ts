@@ -96,3 +96,6 @@ export type Content = {
   experience: Job[];
   education: Education[];
 };
+
+/** Direções do hero em comparação (PLANO.md, seção 2). `hud` é o hero 2D atual. */
+export type HeroVariant = "hud" | "pacote" | "cluster" | "chip" | "player";

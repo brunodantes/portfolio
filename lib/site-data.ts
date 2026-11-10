@@ -1,4 +1,4 @@
-import type { Content, Locale, SectionId, Skill, Stat, StackGroup, Tech } from "./types";
+import type { Content, HeroVariant, Locale, SectionId, Skill, Stat, StackGroup, Tech } from "./types";
 
 // Todo o conteúdo editável do site, nos dois idiomas. Componentes apenas leem estes dados.
 
@@ -13,7 +13,18 @@ export const siteConfig = {
   lang: "pt-BR",
   ogLocale: "pt_BR",
   defaultLocale: "pt" as Locale,
+  /** Hero da home. Troque quando a direção final for escolhida em /conceitos. */
+  heroVariant: "hud" satisfies HeroVariant as HeroVariant,
 };
+
+/** Prévias em /conceitos/<slug> (fora do menu, do sitemap e com noindex). */
+export const heroVariants: { slug: HeroVariant; name: string; ready: boolean }[] = [
+  { slug: "hud", name: "HUD 2D (atual)", ready: true },
+  { slug: "pacote", name: "Pacote de dados", ready: true },
+  { slug: "cluster", name: "Malha distribuída", ready: false },
+  { slug: "chip", name: "Placa de circuito", ready: false },
+  { slug: "player", name: "Seleção de personagem", ready: false },
+];
 
 /** Ordem das seções da página; o `id` de cada uma é a âncora do menu. */
 export const sectionIds: SectionId[] = ["inicio", "trajetoria", "stack", "contato"];
