@@ -123,8 +123,8 @@ Combinações a avaliar: 3 heroes × 2 paletas = 6 prévias. Sugestão: decidir 
 - [x] Componente `Packet` compartilhado (o pacote de dados) em `components/three/shared/`, com prévia em `/conceitos/pacote`. As cores 3D vêm de `lib/palette.ts` (`usePalette()`), trocando ao vivo com a paleta.
 
 ### Fase 4 · Hero 1 (`cluster`) nas duas paletas
-- [ ] Malha de nós instanciada (`InstancedMesh`), partículas de mensagem em shader, bloom.
-- [ ] Coreografia do scroll: caos → arquitetura → nome; versão leve no celular.
+- [x] Malha de nós instanciada (`InstancedMesh`), 72 mensagens correndo pelas arestas camada a camada (borda → APIs → serviços → broker → workers → dados), bloom. O cursor afasta os nós e o clique dispara uma onda de "evento". `components/three/cluster/`.
+- [x] Coreografia do scroll: caos → arquitetura, com o fecho "Do caos à arquitetura." em HTML (no lugar do nome formado em 3D). No celular a arquitetura gira 90° e as camadas descem; com movimento desligado, já aparece organizada ao lado do texto.
 - [ ] **Marco: escolher a paleta (A ou B).**
 
 ### Fase 5 · Jornada do pacote + seções 3D

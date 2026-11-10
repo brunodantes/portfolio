@@ -77,6 +77,10 @@ export type Content = {
       panelLabel: string;
       ctaPrimary: string;
       ctaSecondary: string;
+      /** Dica de scroll e fecho dos heroes 3D. */
+      hint: string;
+      outroTitle: string;
+      outroLead: string;
     };
     about: { title: string; lead: string; current: string; education: string; english: string };
     stack: { title: string; lead: string; sheetLabel: string; sheetIdle: string; sheetSync: string };

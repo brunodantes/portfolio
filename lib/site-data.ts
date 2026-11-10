@@ -21,7 +21,7 @@ export const siteConfig = {
 export const heroVariants: { slug: HeroVariant; name: string; ready: boolean }[] = [
   { slug: "hud", name: "HUD 2D (atual)", ready: true },
   { slug: "pacote", name: "Pacote de dados", ready: true },
-  { slug: "cluster", name: "Malha distribuída", ready: false },
+  { slug: "cluster", name: "Malha distribuída", ready: true },
   { slug: "chip", name: "Placa de circuito", ready: false },
   { slug: "player", name: "Seleção de personagem", ready: false },
 ];
@@ -196,6 +196,9 @@ const pt: Content = {
       panelLabel: "Player / Stats",
       ctaPrimary: "Ver trajetória",
       ctaSecondary: "Falar comigo",
+      hint: "Role para organizar a malha · clique para disparar um evento",
+      outroTitle: "Do caos à arquitetura.",
+      outroLead: "Requisições entram pela borda, passam pelos serviços e pelo broker e chegam aos dados. Sem perder mensagem.",
     },
     about: {
       title: "Trajetória",
@@ -322,6 +325,9 @@ const en: Content = {
       panelLabel: "Player / Stats",
       ctaPrimary: "View experience",
       ctaSecondary: "Get in touch",
+      hint: "Scroll to organize the mesh · click to fire an event",
+      outroTitle: "From chaos to architecture.",
+      outroLead: "Requests enter at the edge, flow through services and the broker, and reach the data. No message lost.",
     },
     about: {
       title: "Experience",
