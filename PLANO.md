@@ -172,5 +172,6 @@ O site atual continua em `/` (grupo `app/(classico)`); os mundos ficam em `/mund
 
 - [x] Interface de jogo comum (missões, conquistas, XP/nível, árvore de habilidades, minimapa).
 - [x] `/mundos/estrategia`: arquipélago noturno com névoa de guerra e unidade de cristal.
-- [ ] `/mundos/tatico`: mesa holográfica de operações (relevo em curvas de nível, rota de briefing, radar da stack).
-- [ ] `/mundos/orbital`: mapa orbital (empresas como planetas/estações, nave em transferência, constelação da stack, portal de dobra).
+- [x] `/mundos/tatico`: mesa holográfica de operações (relevo em curvas de nível, rota de briefing, radar da stack).
+- [x] `/mundos/orbital`: mapa orbital (empresas como planetas/estações, nave em transferência, constelação da stack, portal de dobra).
+- [ ] **Marco: escolher entre Ilhas (original), Estratégia, Sala tática e Mapa orbital** (ou combinar). Depois: levar o escolhido para `/`, apagar os mundos e conceitos descartados e retomar as fases 7–9.
