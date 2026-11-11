@@ -20,14 +20,24 @@ type WorldCanvasProps = WorldSceneProps & {
   fov?: number;
   /** Cor de fundo do mundo (o Canvas é opaco, então vinheta e grão funcionam). */
   background: string;
+  shadows?: boolean;
   children: ReactNode;
 };
 
 /** Canvas padrão dos mundos: tela cheia, opaco, mouse vindo do mundo inteiro. */
-export default function WorldCanvas({ device, reduced, eventSource, fov = 40, background, children }: WorldCanvasProps) {
+export default function WorldCanvas({
+  device,
+  reduced,
+  eventSource,
+  fov = 40,
+  background,
+  shadows = false,
+  children,
+}: WorldCanvasProps) {
   return (
     <Canvas
       dpr={dprFor(device)}
+      shadows={shadows && !device.low ? "percentage" : false}
       camera={{ fov, position: [0, 10, 14], near: 0.1, far: 200 }}
       gl={{ antialias: !device.low, powerPreference: "high-performance" }}
       frameloop={reduced ? "demand" : "always"}

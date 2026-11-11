@@ -153,3 +153,17 @@ Paleta final: **A "Phosphor"** (escolhida na fase 4).
 - [ ] Projeto na Vercel, preview por branch e `NEXT_PUBLIC_SITE_URL` com o endereço `*.vercel.app`.
 - [ ] Atualizar o canonical e os links do LinkedIn/currículo para o novo domínio; desligar o GitHub Pages antigo, se existir.
 - [ ] Juntar `feat/next-3d` na `master` só depois do preview aprovado.
+
+---
+
+## Rodada 2 · Mundos 3D do zero (branch `feat/mundos-3d`)
+
+Pedido do Bruno (10/11/2026): recomeçar o site do zero, todo em 3D, sem seguir o modelo atual, e comparar protótipos.
+O site atual continua em `/` (grupo `app/(classico)`); os mundos ficam em `/mundos/<slug>` (noindex), com o mesmo conteúdo.
+
+- [x] Motor comum (`components/worlds/engine/`): canvas fixo em tela cheia, capítulos em HTML (início, origem, empresas em ordem cronológica, stack, contato), câmera por pontos-chave que estaciona em cada capítulo, HUD com idioma, movimento, currículo e troca de mundo.
+- [x] `/mundos/placa`: Placa de circuito. Chips por empresa, pulso de sinal acendendo as trilhas, capacitores como skills, conector de borda como contato.
+- [x] `/mundos/mercado`: Livro de ofertas. Gráfico de candles que se desenha com o scroll, rompimentos por empresa, média móvel, painel de cotações, livro de ofertas da stack.
+- [x] `/mundos/datacenter`: Sala de controle. Corredor de racks com LEDs, piso refletindo, servidor ejetado por empresa, lanterna no mouse, patch panel e terminal.
+- [x] `/mundos/jogo`: Mundo do jogo. Arquipélago de ilhas flutuantes, personagem-cubo pulando pelo caminho e pegando moedas, ilha de inventário e portal "Continue?", desfoque de maquete.
+- [ ] **Marco: escolher o mundo** (ou combinar ideias de mais de um). Depois: levar o escolhido para `/`, apagar os outros e retomar as fases 7–9 (SEO, qualidade, publicação).
