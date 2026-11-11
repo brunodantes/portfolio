@@ -63,64 +63,39 @@ export type Player = {
   resumeUrl: string;
 };
 
-export type SectionId = "inicio" | "trajetoria" | "stack" | "contato";
 
 export type Content = {
   player: Player;
   ui: {
-    nav: Record<SectionId, string>;
-    navLabel: string;
     skip: string;
-    menuOpen: string;
-    menuClose: string;
     resumeBtn: string;
-    hero: {
-      headline: string;
-      focusKicker: string;
-      panelLabel: string;
+    motion: string;
+    headline: string;
+    chapters: string;
+    more: string;
+    less: string;
+    briefing: {
+      kicker: string;
+      specialties: string;
+      education: string;
+      english: string;
       ctaPrimary: string;
-      ctaSecondary: string;
-      /** Dica de scroll e fecho dos heroes 3D. */
-      hint: string;
-      outroTitle: string;
-      outroLead: string;
+      ctaResume: string;
     };
-    about: { title: string; lead: string; current: string; education: string; english: string };
-    stack: { title: string; lead: string; sheetLabel: string; sheetIdle: string; sheetSync: string };
+    op: { label: string; done: string; active: string; objectives: string; results: string; gear: string };
+    skills: { kicker: string; title: string; lead: string };
     contact: {
+      label: string;
+      kicker: string;
       title: string;
       lead: string;
-      channels: { linkedin: string; github: string; phone: string; resume: string };
-      hints: { linkedin: string; github: string; phone: string; resume: string };
-      motion: string;
+      cta: string;
+      github: string;
+      phone: string;
+      resume: string;
     };
-    notFound: { title: string; lead: string; back: string };
-    /** Textos da interface de jogo (mundos de jogo). */
-    game: {
-      player: string;
-      start: string;
-      tutorial: string;
-      mission: string;
-      done: string;
-      active: string;
-      objectives: string;
-      achievements: string;
-      gear: string;
-      skillTree: string;
-      newMission: string;
-      accept: string;
-      levelUp: string;
-      map: string;
-    };
-    /** Textos dos mundos 3D (/mundos). */
-    worlds: {
-      originTitle: string;
-      originLead: string;
-      scrollHint: string;
-      more: string;
-      less: string;
-      chapters: string;
-    };
+    hud: { levelUp: string; map: string };
+    notFound: { code: string; title: string; lead: string; back: string };
   };
   builds: string[];
   stats: Stat[];
@@ -130,5 +105,3 @@ export type Content = {
   education: Education[];
 };
 
-/** Direções do hero em comparação (PLANO.md, seção 2). `hud` é o hero 2D atual. */
-export type HeroVariant = "hud" | "pacote" | "cluster" | "chip" | "player";

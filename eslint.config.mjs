@@ -8,7 +8,7 @@ const eslintConfig = defineConfig([
   {
     // Cenas R3F mutam objetos do Three.js por frame (useFrame), o padrão recomendado
     // pelo R3F. As regras do React Compiler não se aplicam a esse código imperativo.
-    files: ["components/three/**/*.{ts,tsx}", "components/worlds/**/*.{ts,tsx}"],
+    files: ["components/mission/**/*.{ts,tsx}"],
     rules: {
       "react-hooks/immutability": "off",
       "react-hooks/purity": "off",

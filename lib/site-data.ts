@@ -1,4 +1,4 @@
-import type { Content, HeroVariant, Locale, SectionId, Skill, Stat, StackGroup, Tech } from "./types";
+import type { Content, Locale, Skill, Stat, StackGroup, Tech } from "./types";
 
 // Todo o conteúdo editável do site, nos dois idiomas. Componentes apenas leem estes dados.
 
@@ -13,63 +13,16 @@ export const siteConfig = {
   lang: "pt-BR",
   ogLocale: "pt_BR",
   defaultLocale: "pt" as Locale,
-  /** Hero da home. Troque quando a direção final for escolhida em /conceitos. */
-  heroVariant: "hud" satisfies HeroVariant as HeroVariant,
 };
 
-/** Prévias em /conceitos/<slug> (fora do menu, do sitemap e com noindex). */
-export const heroVariants: { slug: HeroVariant; name: string; ready: boolean }[] = [
-  { slug: "hud", name: "HUD 2D (atual)", ready: true },
-  { slug: "pacote", name: "Pacote de dados", ready: true },
-  { slug: "cluster", name: "Malha distribuída", ready: true },
-  { slug: "chip", name: "Placa de circuito", ready: false },
-  { slug: "player", name: "Seleção de personagem", ready: false },
-];
 
-/** Ordem das seções da página; o `id` de cada uma é a âncora do menu. */
-export const sectionIds: SectionId[] = ["inicio", "trajetoria", "stack", "contato"];
 
 const resumeUrls: Record<Locale, string> = {
   pt: "/resume/Bruno_Almeida_Resume_PTBR.pdf",
   en: "/resume/Bruno_Almeida_Resume_EN.pdf",
 };
 
-/** Tags do painel do hero. */
-export const playerStack: Tech[] = [
-  { icon: "csharp", label: "C#" },
-  { icon: "dotnet", label: ".NET" },
-  { icon: "react", label: "React" },
-  { icon: "nextdotjs", label: "Next.js" },
-  { icon: "typescript", label: "TypeScript" },
-  { icon: "angular", label: "Angular" },
-  { icon: "amazonaws", label: "AWS" },
-  { icon: "docker", label: "Docker" },
-  { icon: "kubernetes", label: "Kubernetes" },
-  { icon: "postgresql", label: "PostgreSQL" },
-  { icon: "microsoftsqlserver", label: "SQL Server" },
-  { icon: "oracle", label: "Oracle" },
-  { icon: "mongodb", label: "MongoDB" },
-  { icon: "rabbitmq", label: "RabbitMQ" },
-  { icon: "datadog", label: "Datadog" },
-  { icon: "opensearch", label: "OpenSearch" },
-  { icon: "claude", label: "Claude" },
-  { icon: "devin", label: "Devin" },
-];
 
-export const marqueeItems = [
-  "C# / .NET",
-  "React",
-  "Next.js",
-  "AWS",
-  "Kubernetes",
-  "Docker",
-  "RabbitMQ",
-  "PostgreSQL",
-  "MongoDB",
-  "Datadog",
-  "OpenSearch",
-  "Event-Driven",
-];
 
 const itauStack: Tech[] = [
   { icon: "dotnet", label: ".NET 10" },
@@ -184,76 +137,50 @@ const pt: Content = {
     resumeUrl: resumeUrls.pt,
   },
   ui: {
-    nav: { inicio: "Início", trajetoria: "Trajetória", stack: "Equipamento", contato: "Contato" },
-    navLabel: "Principal",
     skip: "Pular para o conteúdo",
-    menuOpen: "Abrir menu",
-    menuClose: "Fechar menu",
     resumeBtn: "Currículo",
-    hero: {
-      headline: "Construo sistemas que não param.",
-      focusKicker: "Em foco",
-      panelLabel: "Player / Stats",
-      ctaPrimary: "Ver trajetória",
-      ctaSecondary: "Falar comigo",
-      hint: "Role para organizar a malha · clique para disparar um evento",
-      outroTitle: "Do caos à arquitetura.",
-      outroLead: "Requisições entram pela borda, passam pelos serviços e pelo broker e chegam aos dados. Sem perder mensagem.",
-    },
-    about: {
-      title: "Trajetória",
-      lead: "Mais de 9 anos em engenharia de software — de sistemas web internos a plataformas financeiras de alta disponibilidade.",
-      current: "Atual",
+    motion: "Movimento",
+    headline: "Construo sistemas que não param.",
+    chapters: "Capítulos",
+    more: "Ver tudo",
+    less: "Ver menos",
+    briefing: {
+      kicker: "Briefing · Perfil do operador",
+      specialties: "Especialidades",
       education: "Formação",
       english: "Inglês avançado",
+      ctaPrimary: "Ver operações",
+      ctaResume: "Baixar currículo (PDF)",
     },
-    stack: {
-      title: "Stack e proficiência",
-      lead: "O que uso todos os dias, com o tempo de estrada em cada item.",
-      sheetLabel: "Ficha do personagem",
-      sheetIdle: "idle",
-      sheetSync: "sync",
+    op: {
+      label: "Operação",
+      done: "Concluída",
+      active: "Em andamento",
+      objectives: "Objetivos cumpridos",
+      results: "Resultados",
+      gear: "Equipamento",
+    },
+    skills: {
+      kicker: "SKL · Capacidades",
+      title: "Capacidades",
+      lead: "O que uso todos os dias, com o nível de cada frente.",
     },
     contact: {
-      title: "Próxima fase",
+      label: "Contato",
+      kicker: "Próxima operação",
+      title: "Vamos conversar",
       lead: "Aberto a conversas sobre engenharia de plataforma, arquitetura distribuída e liderança técnica.",
-      channels: { linkedin: "LinkedIn", github: "GitHub", phone: "Telefone", resume: "Currículo" },
-      hints: {
-        linkedin: "Conecte-se comigo",
-        github: "Veja meus repositórios",
-        phone: "Ligue ou mande mensagem",
-        resume: "Baixe o currículo completo",
-      },
-      motion: "Movimento",
+      cta: "Conversar no LinkedIn",
+      github: "GitHub",
+      phone: "Telefone",
+      resume: "Currículo em PDF",
     },
+    hud: { levelUp: "Subiu de nível", map: "Mapa de operações" },
     notFound: {
+      code: "ERRO 404 · COORDENADA FORA DO MAPA",
       title: "Essa rota não existe.",
       lead: "O endereço pode ter mudado ou foi digitado errado.",
       back: "Voltar para o início",
-    },
-    game: {
-      player: "Jogador",
-      start: "Role para começar a campanha",
-      tutorial: "Tutorial concluído",
-      mission: "Missão",
-      done: "Concluída",
-      active: "Em andamento",
-      objectives: "Objetivos",
-      achievements: "Conquistas",
-      gear: "Equipamento",
-      skillTree: "Árvore de habilidades",
-      newMission: "Nova missão",
-      accept: "Aceitar missão",
-      levelUp: "Subiu de nível",
-      map: "Mapa",
-    },
-    worlds: {
-      originTitle: "Origem",
-      originLead: "Antes do código, circuitos: a formação técnica em eletrônica e a graduação em gestão de TI.",
-      scrollHint: "Role para percorrer",
-      more: "Ver tudo",
-      less: "Ver menos",
-      chapters: "Capítulos",
     },
   },
   builds: [
@@ -332,7 +259,6 @@ const pt: Content = {
   ],
   education: [
     { course: "Tecnólogo em Gestão da Tecnologia da Informação", where: "FATEC Mauá · 2018" },
-    { course: "Técnico em Eletrônica", where: "ETEC Júlio de Mesquita · 2014" },
   ],
 };
 
@@ -345,76 +271,50 @@ const en: Content = {
     resumeUrl: resumeUrls.en,
   },
   ui: {
-    nav: { inicio: "Home", trajetoria: "Experience", stack: "Stack", contato: "Contact" },
-    navLabel: "Main",
     skip: "Skip to content",
-    menuOpen: "Open menu",
-    menuClose: "Close menu",
     resumeBtn: "Resume",
-    hero: {
-      headline: "I build systems that stay up.",
-      focusKicker: "In focus",
-      panelLabel: "Player / Stats",
-      ctaPrimary: "View experience",
-      ctaSecondary: "Get in touch",
-      hint: "Scroll to organize the mesh · click to fire an event",
-      outroTitle: "From chaos to architecture.",
-      outroLead: "Requests enter at the edge, flow through services and the broker, and reach the data. No message lost.",
-    },
-    about: {
-      title: "Experience",
-      lead: "9+ years in software engineering — from internal web systems to high-availability financial platforms.",
-      current: "Current",
+    motion: "Motion",
+    headline: "I build systems that stay up.",
+    chapters: "Chapters",
+    more: "Show all",
+    less: "Show less",
+    briefing: {
+      kicker: "Briefing · Operator profile",
+      specialties: "Specialties",
       education: "Education",
       english: "Advanced English",
+      ctaPrimary: "View operations",
+      ctaResume: "Download resume (PDF)",
     },
-    stack: {
-      title: "Stack & proficiency",
-      lead: "What I use every day, with time-on-the-road for each one.",
-      sheetLabel: "Character sheet",
-      sheetIdle: "idle",
-      sheetSync: "sync",
+    op: {
+      label: "Operation",
+      done: "Complete",
+      active: "In progress",
+      objectives: "Objectives completed",
+      results: "Results",
+      gear: "Gear",
+    },
+    skills: {
+      kicker: "SKL · Capabilities",
+      title: "Capabilities",
+      lead: "What I use every day, with the level of each area.",
     },
     contact: {
-      title: "Next level",
+      label: "Contact",
+      kicker: "Next operation",
+      title: "Let's talk",
       lead: "Open to conversations about platform engineering, distributed architecture, and technical leadership.",
-      channels: { linkedin: "LinkedIn", github: "GitHub", phone: "Phone", resume: "Resume" },
-      hints: {
-        linkedin: "Connect with me",
-        github: "See my repositories",
-        phone: "Call or message",
-        resume: "Download the full resume",
-      },
-      motion: "Motion",
+      cta: "Message me on LinkedIn",
+      github: "GitHub",
+      phone: "Phone",
+      resume: "Resume (PDF)",
     },
+    hud: { levelUp: "Level up", map: "Operations map" },
     notFound: {
+      code: "ERROR 404 · COORDINATE OFF THE MAP",
       title: "This route doesn't exist.",
       lead: "The address may have changed or was mistyped.",
       back: "Back to home",
-    },
-    game: {
-      player: "Player",
-      start: "Scroll to start the campaign",
-      tutorial: "Tutorial complete",
-      mission: "Mission",
-      done: "Complete",
-      active: "In progress",
-      objectives: "Objectives",
-      achievements: "Achievements",
-      gear: "Gear",
-      skillTree: "Skill tree",
-      newMission: "New mission",
-      accept: "Accept mission",
-      levelUp: "Level up",
-      map: "Map",
-    },
-    worlds: {
-      originTitle: "Origin",
-      originLead: "Before code, circuits: a technical degree in electronics and a degree in IT management.",
-      scrollHint: "Scroll to travel",
-      more: "Show all",
-      less: "Show less",
-      chapters: "Chapters",
     },
   },
   builds: [
@@ -493,7 +393,6 @@ const en: Content = {
   ],
   education: [
     { course: "Technologist in Technology Management", where: "FATEC Mauá · 2018" },
-    { course: "Technical Degree in Electronics", where: "ETEC Júlio de Mesquita · 2014" },
   ],
 };
 

@@ -1,27 +1,15 @@
 import Script from "next/script";
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono, Michroma, Sora } from "next/font/google";
+import { IBM_Plex_Sans, Oxanium, Share_Tech_Mono } from "next/font/google";
 import SkipLink from "@/components/SkipLink";
+import SmoothScroll from "@/components/SmoothScroll";
 import { siteConfig } from "@/lib/site-data";
 import "./globals.css";
 
-const display = Michroma({
-  variable: "--font-display-face",
-  subsets: ["latin"],
-  weight: "400",
-});
-
-const sans = Sora({
-  variable: "--font-sans-face",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-});
-
-const mono = JetBrains_Mono({
-  variable: "--font-mono-face",
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-});
+// Fontes do tema: Oxanium (títulos), IBM Plex Sans (texto) e Share Tech Mono (telemetria).
+const display = Oxanium({ variable: "--font-display-face", subsets: ["latin"], weight: ["500", "600", "700"] });
+const sans = IBM_Plex_Sans({ variable: "--font-sans-face", subsets: ["latin"], weight: ["400", "500"] });
+const mono = Share_Tech_Mono({ variable: "--font-mono-face", subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -51,7 +39,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport: Viewport = { themeColor: "#08090C" };
+export const viewport: Viewport = { themeColor: "#03060c" };
 
 // Roda antes da primeira pintura, para a página não piscar: aplica as preferências salvas
 // (idioma e movimento) em `pf:prefs`, ver lib/preferences.ts.
@@ -67,8 +55,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <Script id="boot" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: bootScript }} />
       </head>
-      <body className="relative min-h-screen bg-bg font-sans text-body antialiased">
+      <body className="min-h-screen bg-bg font-sans text-body antialiased">
         <SkipLink />
+        <SmoothScroll />
         {children}
       </body>
     </html>
