@@ -11,6 +11,7 @@ export const worldList = [
   { slug: "tatico", name: "Sala tática", group: "jogo" },
   { slug: "orbital", name: "Mapa orbital", group: "jogo" },
   { slug: "reino", name: "Reino", group: "jogo" },
+  { slug: "sombrio", name: "Terras sombrias", group: "jogo" },
 ] as const;
 
 export type WorldSlug = (typeof worldList)[number]["slug"];

@@ -175,4 +175,5 @@ O site atual continua em `/` (grupo `app/(classico)`); os mundos ficam em `/mund
 - [x] `/mundos/tatico`: mesa holográfica de operações (relevo em curvas de nível, rota de briefing, radar da stack).
 - [x] `/mundos/orbital`: mapa orbital (empresas como planetas/estações, nave em transferência, constelação da stack, portal de dobra).
 - [x] `/mundos/reino`: RPG medieval (pedido do Bruno). Reino ao anoitecer; cada experiência é um monumento (forja, moinho, torre da guilda, fortaleza, cidadela, círculo rúnico, quadro de missões); a câmera para de frente para cada fachada; os cartões alternam de lado e entram deslizando.
-- [ ] **Marco: escolher entre Ilhas (original), Estratégia, Sala tática, Mapa orbital e Reino** (ou combinar). Depois: levar o escolhido para `/`, apagar os mundos e conceitos descartados e retomar as fases 7–9.
+- [x] `/mundos/sombrio`: Terras sombrias, fantasia sombria original no estilo "soulslike" (pedido inspirado em Elden Ring, sem copiar nomes, símbolos ou visual do jogo). Santuários em ruínas por experiência, luz dourada, névoa, cinzas, fragmentos de luz guiando a trilha.
+- [ ] **Marco: escolher entre Estratégia, Reino e Terras sombrias** (finalistas) — ou Ilhas, Sala tática, Mapa orbital (ou combinar). Depois: levar o escolhido para `/`, apagar os mundos e conceitos descartados e retomar as fases 7–9.
