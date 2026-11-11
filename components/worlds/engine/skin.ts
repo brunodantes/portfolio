@@ -18,4 +18,7 @@ export type Skin = {
   barTrack: string;
   barFill: string;
   divider: string;
+  /** Mundos de jogo: selo de conquista e marcador de objetivo concluído. */
+  badge?: string;
+  check?: string;
 };

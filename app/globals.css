@@ -165,6 +165,27 @@ html.lenis body {
     transform: translateY(-50%);
   }
 }
+/* Aviso de "subiu de nível" nos mundos de jogo (components/worlds/engine/GameHud.tsx). */
+@keyframes level-up {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 8px);
+  }
+  15%,
+  70% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -6px);
+  }
+}
+.level-up {
+  opacity: 0;
+  animation: level-up 2.2s ease-out 1 both;
+}
+
 @keyframes pulse-dot {
   0%,
   100% {

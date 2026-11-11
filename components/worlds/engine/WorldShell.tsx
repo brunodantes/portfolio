@@ -5,6 +5,8 @@ import { useDeviceProfile } from "@/lib/device";
 import { usePreferences } from "@/lib/preferences";
 import { CHAPTER_COUNT, useChapters } from "./chapters";
 import ChapterContent from "./ChapterContent";
+import GameChapter from "./GameChapter";
+import GameHud from "./GameHud";
 import { journey, setActiveChapter } from "./journey";
 import WorldHud from "./WorldHud";
 import type { WorldConfig } from "./types";
@@ -89,6 +91,7 @@ export default function WorldShell({ world }: { world: WorldConfig }) {
       )}
 
       <WorldHud world={world} chapters={chapters} />
+      {world.game && <GameHud world={world} chapters={chapters} />}
 
       <main id="conteudo" className="relative z-10">
         {chapters.map((chapter, index) => (
@@ -100,7 +103,11 @@ export default function WorldShell({ world }: { world: WorldConfig }) {
             className={`pointer-events-none flex min-h-[100svh] items-center px-4 py-24 sm:px-10 lg:px-16 ${alignClass[world.align[index] ?? "left"]}`}
           >
             <div className="pointer-events-auto w-full max-w-[520px]">
-              <ChapterContent chapter={chapter} index={index} skin={world.skin} />
+              {world.game ? (
+                <GameChapter chapter={chapter} index={index} skin={world.skin} />
+              ) : (
+                <ChapterContent chapter={chapter} index={index} skin={world.skin} />
+              )}
             </div>
           </section>
         ))}

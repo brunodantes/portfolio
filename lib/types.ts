@@ -43,6 +43,9 @@ export type Job = {
   current?: boolean;
   bullets: string[];
   stack: Tech[];
+  /** Mundos de jogo: nível alcançado nessa fase e conquistas (resultados resumidos). */
+  level: number;
+  achievements: string[];
 };
 
 export type Education = { course: string; where: string };
@@ -92,6 +95,23 @@ export type Content = {
       motion: string;
     };
     notFound: { title: string; lead: string; back: string };
+    /** Textos da interface de jogo (mundos de jogo). */
+    game: {
+      player: string;
+      start: string;
+      tutorial: string;
+      mission: string;
+      done: string;
+      active: string;
+      objectives: string;
+      achievements: string;
+      gear: string;
+      skillTree: string;
+      newMission: string;
+      accept: string;
+      levelUp: string;
+      map: string;
+    };
     /** Textos dos mundos 3D (/mundos). */
     worlds: {
       originTitle: string;

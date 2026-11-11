@@ -15,6 +15,7 @@ export default function WorldHud({ world, chapters }: { world: WorldConfig; chap
   const active = useActiveChapter();
   const path = usePathname();
   const hud = world.hud;
+  const currentGroup = worldList.find((w) => path === `/mundos/${w.slug}`)?.group ?? "jogo";
 
   return (
     <>
@@ -72,7 +73,7 @@ export default function WorldHud({ world, chapters }: { world: WorldConfig; chap
         aria-label="Mundos"
         className="fixed bottom-3 left-1/2 z-30 flex -translate-x-1/2 gap-1 rounded-full border border-white/15 bg-black/70 p-1 text-[12px] text-white/80 backdrop-blur-md"
       >
-        {worldList.map((w) => {
+        {worldList.filter((w) => w.group === currentGroup).map((w) => {
           const current = path === `/mundos/${w.slug}`;
           return (
             <Link

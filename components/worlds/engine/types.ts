@@ -23,4 +23,9 @@ export type WorldConfig = {
   overlay?: ReactNode;
   /** Classes do HUD fixo (barra do topo e índice de capítulos). */
   hud: { bar: string; brand: string; item: string; itemActive: string; button: string };
+  /**
+   * Mundos de jogo: capítulos como missões, HUD de nível/XP e minimapa.
+   * `minimap` tem um ponto (0–1) por capítulo a partir da origem.
+   */
+  game?: { minimap: [number, number][]; accent: string; panel: string };
 };
