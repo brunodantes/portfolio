@@ -17,6 +17,8 @@ export type WorldConfig = {
   skin: Skin;
   /** Onde o cartão de cada capítulo fica na tela, para não cobrir o foco da cena. */
   align: ("left" | "right" | "center")[];
+  /** Cartões entram deslizando do seu lado quando o capítulo fica ativo (só com movimento ligado). */
+  cardMotion?: boolean;
   /** Sem WebGL: fundo estático no lugar da cena. */
   fallback: ReactNode;
   /** Camadas decorativas por cima da cena (scanlines, vinheta…). */

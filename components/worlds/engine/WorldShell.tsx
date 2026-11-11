@@ -7,7 +7,7 @@ import { CHAPTER_COUNT, useChapters } from "./chapters";
 import ChapterContent from "./ChapterContent";
 import GameChapter from "./GameChapter";
 import GameHud from "./GameHud";
-import { journey, setActiveChapter } from "./journey";
+import { journey, setActiveChapter, useActiveChapter } from "./journey";
 import WorldHud from "./WorldHud";
 import type { WorldConfig } from "./types";
 
@@ -27,6 +27,7 @@ export default function WorldShell({ world }: { world: WorldConfig }) {
   const { motion } = usePreferences();
   const device = useDeviceProfile();
   const Scene = world.scene;
+  const active = useActiveChapter();
 
   useEffect(() => {
     journey.reduced = !motion;
@@ -102,7 +103,17 @@ export default function WorldShell({ world }: { world: WorldConfig }) {
             aria-label={chapter.label}
             className={`pointer-events-none flex min-h-[100svh] items-center px-4 py-24 sm:px-10 lg:px-16 ${alignClass[world.align[index] ?? "left"]}`}
           >
-            <div className="pointer-events-auto w-full max-w-[520px]">
+            <div
+              className={`pointer-events-auto w-full max-w-[520px] ${
+                world.cardMotion && motion
+                  ? `transition-[opacity,translate] duration-700 ease-[cubic-bezier(.16,1,.3,1)] ${
+                      active === index
+                        ? "translate-x-0 opacity-100"
+                        : `opacity-0 ${world.align[index] === "right" ? "translate-x-16" : "-translate-x-16"}`
+                    }`
+                  : ""
+              }`}
+            >
               {world.game ? (
                 <GameChapter chapter={chapter} index={index} skin={world.skin} />
               ) : (

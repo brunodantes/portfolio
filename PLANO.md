@@ -174,4 +174,5 @@ O site atual continua em `/` (grupo `app/(classico)`); os mundos ficam em `/mund
 - [x] `/mundos/estrategia`: arquipélago noturno com névoa de guerra e unidade de cristal.
 - [x] `/mundos/tatico`: mesa holográfica de operações (relevo em curvas de nível, rota de briefing, radar da stack).
 - [x] `/mundos/orbital`: mapa orbital (empresas como planetas/estações, nave em transferência, constelação da stack, portal de dobra).
-- [ ] **Marco: escolher entre Ilhas (original), Estratégia, Sala tática e Mapa orbital** (ou combinar). Depois: levar o escolhido para `/`, apagar os mundos e conceitos descartados e retomar as fases 7–9.
+- [x] `/mundos/reino`: RPG medieval (pedido do Bruno). Reino ao anoitecer; cada experiência é um monumento (forja, moinho, torre da guilda, fortaleza, cidadela, círculo rúnico, quadro de missões); a câmera para de frente para cada fachada; os cartões alternam de lado e entram deslizando.
+- [ ] **Marco: escolher entre Ilhas (original), Estratégia, Sala tática, Mapa orbital e Reino** (ou combinar). Depois: levar o escolhido para `/`, apagar os mundos e conceitos descartados e retomar as fases 7–9.
