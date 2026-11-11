@@ -1,5 +1,8 @@
 # Plano — Portfólio 2.0 (Next.js + 3D)
 
+> **Estado atual:** o site oficial é a **Sala tática** (seção "Projeto oficial" no fim). As seções 1–4 e as rodadas
+> 2 e 3 são o histórico de como se chegou lá; o código delas saiu do repositório e fica no histórico do git.
+
 Evoluir o portfólio atual (Vite + React 19 em JSX, `app/`) para um produto Next.js no mesmo padrão do `dunkode-site`:
 Next 16 App Router + TypeScript + Tailwind v4 + React Three Fiber, com animação 3D guiada pelo scroll e duas paletas em comparação.
 
@@ -176,4 +179,24 @@ O site atual continua em `/` (grupo `app/(classico)`); os mundos ficam em `/mund
 - [x] `/mundos/orbital`: mapa orbital (empresas como planetas/estações, nave em transferência, constelação da stack, portal de dobra).
 - [x] `/mundos/reino`: RPG medieval (pedido do Bruno). Reino ao anoitecer; cada experiência é um monumento (forja, moinho, torre da guilda, fortaleza, cidadela, círculo rúnico, quadro de missões); a câmera para de frente para cada fachada; os cartões alternam de lado e entram deslizando.
 - [x] `/mundos/sombrio`: Terras sombrias, fantasia sombria original no estilo "soulslike" (pedido inspirado em Elden Ring, sem copiar nomes, símbolos ou visual do jogo). Santuários em ruínas por experiência, luz dourada, névoa, cinzas, fragmentos de luz guiando a trilha.
-- [ ] **Marco: escolher entre Estratégia, Reino e Terras sombrias** (finalistas) — ou Ilhas, Sala tática, Mapa orbital (ou combinar). Depois: levar o escolhido para `/`, apagar os mundos e conceitos descartados e retomar as fases 7–9.
+- [x] **Marco: tema escolhido — Sala tática** (10/11/2026). Os demais mundos e prévias foram removidos do código. (ou combinar). Depois: levar o escolhido para `/`, apagar os mundos e conceitos descartados e retomar as fases 7–9.
+
+---
+
+## Projeto oficial · Sala tática
+
+Pedido do Bruno: fechar o projeto só com a Sala tática e buscar melhorias visuais e de conteúdo.
+
+- [x] Sala tática em `/`; remoção do site antigo, dos outros mundos, das prévias e do código sem uso.
+- [x] Estrutura `components/mission` (motor) + `components/mission/tatico` (cena, layout, tema); tokens e fontes do tema.
+- [x] Conteúdo: vocabulário de operação, CTAs no briefing e no contato, códigos iguais aos da mesa, 404 no tema.
+- [x] Formação fora da jornada (decisão: uma parada inteira pesa pouco para um sênior); só a FATEC aparece, no briefing. A ETEC segue no currículo em PDF.
+- [x] Visual: mesa ligando na abertura, território explorado aceso, etiquetas PT/EN, bordas e cantoneiras, HUD com a operação atual.
+- [x] Celular: cabeçalho numa linha, HUD de nível escondido, cartões rolando por dentro.
+- [x] SEO: imagem de compartilhamento no tema, JSON-LD Person, favicon.
+- [x] Qualidade: testes de fumaça com Playwright (desktop e celular) e CI no GitHub Actions.
+- [ ] Revisar os textos novos em `lib/site-data.ts`: conquistas de cada experiência e rótulos da interface.
+- [ ] Conferir "9 anos": de Dez/2016 a Nov/2026 já são quase 10 (o site diz "mais de 9" e LV 09).
+- [ ] Publicar na Vercel (preview por branch) e definir `NEXT_PUBLIC_SITE_URL`; depois, domínio próprio.
+- [ ] Ativar Vercel Web Analytics / Speed Insights e medir o Lighthouse mobile depois do deploy.
+- [ ] Juntar `feat/mundos-3d` na `master` depois do preview aprovado.
