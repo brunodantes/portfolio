@@ -27,11 +27,23 @@ import CameraRig, { type CameraKey } from "../CameraRig";
 import { journey } from "../journey";
 import WorldCanvas from "../WorldCanvas";
 import type { WorldSceneProps } from "../types";
-import { OPS, TABLE, heightAt, type Op } from "./layout";
+import { usePreferences } from "@/lib/preferences";
+import { OPS, TABLE, heightAt, textOf, type Op } from "./layout";
 
 const BG = "#03060c";
 const HOLO = new Color("#4cc9f0");
 const AMBER = new Color("#ffb347");
+
+/** Posição da unidade na rota para um progresso `s` em operações (0 = primeira). */
+function routeAt(s: number, out: Vector3) {
+  const seg = Math.min(OPS.length - 2, Math.max(0, Math.floor(s)));
+  const f = Math.min(1, Math.max(0, s - seg));
+  const a = OPS[seg];
+  const b = OPS[seg + 1];
+  const x = a.x + (b.x - a.x) * f;
+  const z = a.z + (b.z - a.z) * f;
+  return out.set(x, heightAt(x, z), z);
+}
 
 /** Quanto a operação já foi alcançada (as próximas ficam apagadas). */
 const reachOf = (index: number) => Math.min(1, Math.max(0, (journey.smooth - index + 0.2) * 1.4));
@@ -50,10 +62,19 @@ function Terrain() {
   const material = useRef<ShaderMaterial>(null);
   const args = useMemo(
     () => ({
-      uniforms: { uTime: { value: 0 }, uColor: { value: HOLO.clone() }, uPulse: { value: 0 } },
+      uniforms: {
+        uTime: { value: 0 },
+        uColor: { value: HOLO.clone() },
+        uPulse: { value: 0 },
+        uReveal: { value: 0 },
+        uUnit: { value: new Vector2() },
+        uReach: { value: 0 },
+        uOps: { value: OPS.map((o) => new Vector2(o.x, o.z)) },
+      },
       vertexShader: `varying float vH; varying vec3 vW;
         void main(){ vH = position.y; vec4 w = modelMatrix * vec4(position,1.0); vW = w.xyz; gl_Position = projectionMatrix * viewMatrix * w; }`,
-      fragmentShader: `uniform float uTime; uniform vec3 uColor; uniform float uPulse; varying float vH; varying vec3 vW;
+      fragmentShader: `uniform float uTime; uniform vec3 uColor; uniform float uPulse; uniform float uReveal;
+        uniform vec2 uUnit; uniform float uReach; uniform vec2 uOps[${OPS.length}]; varying float vH; varying vec3 vW;
         float lineOf(float v){ float f = fract(v); float d = min(f, 1.0 - f) / max(fwidth(v), 1e-4); return 1.0 - clamp(d, 0.0, 1.0); }
         void main(){
           float contour = lineOf(vH * 5.0);
@@ -62,16 +83,32 @@ function Terrain() {
           float sweepX = mod(uTime * 4.0, 44.0) - 22.0;
           float sweep = exp(-pow((vW.x - sweepX) * 0.5, 2.0));
           float edge = smoothstep(15.0, 13.0, abs(vW.x)) * smoothstep(10.0, 8.5, abs(vW.z));
-          float a = (0.05 + contour * 0.45 + major * 0.5 + grid + sweep * 0.25 + uPulse * 0.3) * edge;
-          gl_FragColor = vec4(uColor * (0.5 + contour + major * 1.6 + sweep * 1.2 + uPulse), a);
+          // Território explorado: perto da unidade e das operações já alcançadas fica aceso.
+          float near = 1.0 - smoothstep(4.0, 9.0, distance(vW.xz, uUnit));
+          for (int i = 0; i < ${OPS.length}; i++) {
+            float reached = step(float(i) + 0.5, uReach);
+            near = max(near, reached * (1.0 - smoothstep(3.5, 8.0, distance(vW.xz, uOps[i]))));
+          }
+          float explored = 0.3 + 0.7 * near;
+          // Abertura: a mesa se projeta do centro para as bordas.
+          float reveal = smoothstep(uReveal * 24.0, uReveal * 24.0 - 3.0, length(vW.xz));
+          float front = exp(-pow((length(vW.xz) - uReveal * 24.0) * 0.9, 2.0)) * (1.0 - uReveal);
+          float a = ((0.05 + contour * 0.45 + major * 0.5 + grid + sweep * 0.25) * explored + uPulse * 0.3) * edge * reveal + front * edge;
+          gl_FragColor = vec4(uColor * (0.5 + contour + major * 1.6 + sweep * 1.2 + uPulse + front * 2.0), a);
         }`,
     }),
     [],
   );
-  useFrame(({ clock }) => {
+  const unit = useMemo(() => new Vector3(), []);
+  useFrame(({ clock }, delta) => {
     if (!material.current) return;
-    material.current.uniforms.uTime.value = journey.reduced ? 2 : clock.elapsedTime;
-    material.current.uniforms.uPulse.value = journey.impulse;
+    const u = material.current.uniforms;
+    u.uTime.value = journey.reduced ? 2 : clock.elapsedTime;
+    u.uPulse.value = journey.impulse;
+    u.uReveal.value = journey.reduced ? 1 : Math.min(1, u.uReveal.value + Math.min(delta, 0.1) / 2.2);
+    routeAt(Math.max(0, journey.smooth - 1), unit);
+    u.uUnit.value.set(unit.x, unit.z);
+    u.uReach.value = journey.smooth;
   });
   return (
     <mesh geometry={geometry}>
@@ -95,14 +132,35 @@ function Table() {
         <boxGeometry args={[TABLE.w + 2, 0.6, TABLE.d + 2]} />
         <meshStandardMaterial color="#0a0f18" metalness={0.7} roughness={0.4} />
       </mesh>
+      {/* Filetes acesos nas quatro bordas. */}
       {[
         [0, (TABLE.d + 2) / 2, TABLE.w + 2, 0.04],
         [0, -(TABLE.d + 2) / 2, TABLE.w + 2, 0.04],
+        [(TABLE.w + 2) / 2, 0, 0.04, TABLE.d + 2],
+        [-(TABLE.w + 2) / 2, 0, 0.04, TABLE.d + 2],
       ].map(([x, z, w, d], i) => (
         <mesh key={i} position={[x, -0.04, z]}>
           <boxGeometry args={[w, 0.03, d]} />
-          <meshBasicMaterial color={HOLO.clone().multiplyScalar(2)} toneMapped={false} />
+          <meshBasicMaterial color={HOLO.clone().multiplyScalar(i < 2 ? 2 : 1.4)} toneMapped={false} />
         </mesh>
+      ))}
+      {/* Cantoneiras âmbar nos cantos da mesa. */}
+      {[
+        [1, 1],
+        [1, -1],
+        [-1, 1],
+        [-1, -1],
+      ].map(([sx, sz]) => (
+        <group key={`${sx}${sz}`} position={[sx * (TABLE.w / 2 + 0.6), 0.02, sz * (TABLE.d / 2 + 0.6)]}>
+          <mesh position={[-sx * 0.6, 0, 0]}>
+            <boxGeometry args={[1.2, 0.04, 0.08]} />
+            <meshBasicMaterial color={AMBER.clone().multiplyScalar(2.2)} toneMapped={false} />
+          </mesh>
+          <mesh position={[0, 0, -sz * 0.6]}>
+            <boxGeometry args={[0.08, 0.04, 1.2]} />
+            <meshBasicMaterial color={AMBER.clone().multiplyScalar(2.2)} toneMapped={false} />
+          </mesh>
+        </group>
       ))}
       <mesh position={[0, -0.66, 0]} rotation-x={-Math.PI / 2}>
         <planeGeometry args={[120, 120]} />
@@ -112,7 +170,9 @@ function Table() {
   );
 }
 
-function makeLabel(op: Op) {
+function makeLabel(op: Op, locale: "pt" | "en") {
+  const label = textOf(op.label, locale);
+  const sub = textOf(op.sub, locale);
   const c = document.createElement("canvas");
   c.width = 768;
   c.height = 176;
@@ -126,10 +186,10 @@ function makeLabel(op: Op) {
   g.fillStyle = "#ffb347";
   g.fillText(op.code, 32, 56);
   g.fillStyle = "#4cc9f0";
-  g.fillText(op.sub, 768 - 32 - g.measureText(op.sub).width, 56);
+  g.fillText(sub, 768 - 32 - g.measureText(sub).width, 56);
   g.font = "700 64px sans-serif";
   g.fillStyle = "#e6f6ff";
-  g.fillText(op.label, 32, 140);
+  g.fillText(label, 32, 140);
   const t = new CanvasTexture(c);
   t.colorSpace = SRGBColorSpace;
   return t;
@@ -137,7 +197,8 @@ function makeLabel(op: Op) {
 
 /** Marcador de operação: pilar hexagonal holográfico, anel no chão e etiqueta. */
 function Marker({ op, index }: { op: Op; index: number }) {
-  const label = useMemo(() => makeLabel(op), [op]);
+  const { locale } = usePreferences();
+  const label = useMemo(() => makeLabel(op, locale), [op, locale]);
   useEffect(() => () => label.dispose(), [label]);
   const y = heightAt(op.x, op.z);
   const pillar = useRef<MeshBasicMaterial>(null);
@@ -233,15 +294,7 @@ function Route() {
 function UnitToken() {
   const root = useRef<Group>(null);
   const tmp = useMemo(() => ({ p: new Vector3(), n: new Vector3() }), []);
-  const at = (s: number, out: Vector3) => {
-    const seg = Math.min(OPS.length - 2, Math.max(0, Math.floor(s)));
-    const f = Math.min(1, Math.max(0, s - seg));
-    const a = OPS[seg];
-    const b = OPS[seg + 1];
-    const x = a.x + (b.x - a.x) * f;
-    const z = a.z + (b.z - a.z) * f;
-    return out.set(x, heightAt(x, z), z);
-  };
+  const at = routeAt;
   useFrame(({ clock }) => {
     const s = Math.max(0, journey.smooth - 1);
     at(s, tmp.p);
@@ -286,7 +339,7 @@ function Radar() {
   useFrame(({ clock }) => {
     const here = Math.max(0, 1 - Math.abs(journey.smooth - 5) * 1.2);
     if (group.current) {
-      group.current.scale.setScalar(0.35 + here * 0.45);
+      group.current.scale.setScalar(0.3 + here * 0.35);
       if (!journey.reduced) group.current.rotation.y = clock.elapsedTime * 0.25;
     }
   });
@@ -295,7 +348,7 @@ function Radar() {
       <group ref={group}>
         <group rotation-x={-0.35}>
           <mesh geometry={geometry}>
-            <meshBasicMaterial color={AMBER} transparent opacity={0.22} side={DoubleSide} depthWrite={false} />
+            <meshBasicMaterial color={AMBER} transparent opacity={0.14} side={DoubleSide} depthWrite={false} />
           </mesh>
           {skills.map((s, i) => {
             const a = (i / skills.length) * Math.PI * 2 + Math.PI / 2;

@@ -1,16 +1,20 @@
 // Layout da mesa tática (fora da cena, para o config e o minimapa não carregarem o 3D).
 
 export type OpKind = "op" | "radar" | "beacon";
-export type Op = { x: number; z: number; kind: OpKind; code: string; label: string; sub: string };
+/** Texto da etiqueta: igual nos dois idiomas (nomes de empresa) ou por idioma. */
+export type LabelText = string | { pt: string; en: string };
+export type Op = { x: number; z: number; kind: OpKind; code: string; label: LabelText; sub: LabelText };
+
+export const textOf = (t: LabelText, locale: "pt" | "en") => (typeof t === "string" ? t : t[locale]);
 
 /** Operações na mesa, uma por capítulo depois do briefing (empresas, capacidades e contato). */
 export const OPS: Op[] = [
   { x: -9.5, z: 3.5, kind: "op", code: "OP-01", label: "NESTLÉ", sub: "2016–2017" },
   { x: -2, z: -4.5, kind: "op", code: "OP-02", label: "SINQIA", sub: "2018–2023" },
   { x: 4, z: -1.5, kind: "op", code: "OP-03", label: "BTG PACTUAL", sub: "2023–2026" },
-  { x: 9.5, z: 3.5, kind: "op", code: "OP-04", label: "ITAÚ", sub: "2026 · ATIVA" },
-  { x: 3, z: 6.5, kind: "radar", code: "SKL", label: "HABILIDADES", sub: "LV 09" },
-  { x: 11, z: -5.5, kind: "beacon", code: "NEW", label: "NOVA MISSÃO", sub: "AGUARDANDO" },
+  { x: 9.5, z: 3.5, kind: "op", code: "OP-04", label: "ITAÚ", sub: { pt: "2026 · ATIVA", en: "2026 · ACTIVE" } },
+  { x: 3, z: 6.5, kind: "radar", code: "SKL", label: { pt: "CAPACIDADES", en: "CAPABILITIES" }, sub: "LV 09" },
+  { x: 11, z: -5.5, kind: "beacon", code: "OP-05", label: { pt: "CONTATO", en: "CONTACT" }, sub: { pt: "AGUARDANDO", en: "STANDING BY" } },
 ];
 
 export const TABLE = { w: 30, d: 20 };

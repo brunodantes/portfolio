@@ -71,7 +71,7 @@ export default function GameChapter({ chapter, skin, code }: GameChapterProps) {
           <h1 className={skin.hero}>{ui.headline}</h1>
         </div>
         <p className={skin.body}>{player.summary}</p>
-        <dl className="grid grid-cols-2 gap-3">
+        <dl className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           {stats.map((s) => (
             <div key={s.label} className={`grid gap-0.5 pt-2 ${skin.divider}`}>
               <dt className={skin.sub}>{s.label}</dt>
