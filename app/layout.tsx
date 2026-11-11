@@ -3,7 +3,7 @@ import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Sans, Oxanium, Share_Tech_Mono } from "next/font/google";
 import SkipLink from "@/components/SkipLink";
 import SmoothScroll from "@/components/SmoothScroll";
-import { siteConfig } from "@/lib/site-data";
+import { content, siteConfig } from "@/lib/site-data";
 import "./globals.css";
 
 // Fontes do tema: Oxanium (títulos), IBM Plex Sans (texto) e Share Tech Mono (telemetria).
@@ -22,24 +22,33 @@ export const metadata: Metadata = {
     title: siteConfig.title,
     description: siteConfig.ogDescription,
     locale: siteConfig.ogLocale,
-    images: [
-      {
-        url: "/og-preview.png",
-        width: 1200,
-        height: 630,
-        alt: "Preview visual do portfólio de Bruno Almeida com interface HUD de engenharia, nuvem, código e telemetria.",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.title,
     description: siteConfig.ogDescription,
-    images: ["/og-preview.png"],
   },
 };
 
 export const viewport: Viewport = { themeColor: "#03060c" };
+
+// Dados estruturados (schema.org) para buscadores e IAs entenderem quem é o Bruno.
+const pt = content.pt;
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: pt.player.fullName,
+  alternateName: siteConfig.name,
+  jobTitle: pt.player.role,
+  description: pt.player.summary,
+  url: siteConfig.url,
+  image: `${siteConfig.url}/opengraph-image`,
+  address: { "@type": "PostalAddress", addressLocality: "São Paulo", addressCountry: "BR" },
+  sameAs: [`https://${pt.player.linkedin}`, `https://${pt.player.github}`],
+  knowsAbout: pt.stack.flatMap((group) => group.items),
+  alumniOf: pt.education.map((e) => ({ "@type": "EducationalOrganization", name: e.where.split(" · ")[0] })),
+  worksFor: { "@type": "Organization", name: pt.experience[0].org },
+};
 
 // Roda antes da primeira pintura, para a página não piscar: aplica as preferências salvas
 // (idioma e movimento) em `pf:prefs`, ver lib/preferences.ts.
@@ -59,6 +68,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SkipLink />
         <SmoothScroll />
         {children}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
       </body>
     </html>
   );
