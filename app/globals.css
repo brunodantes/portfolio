@@ -165,6 +165,12 @@ html.lenis body {
     transform: translateY(-50%);
   }
 }
+/* Cartões dos mundos: barra de rolagem fina quando o conteúdo passa da altura da tela. */
+.world-card {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(255 255 255 / 0.25) transparent;
+}
+
 /* Aviso de "subiu de nível" nos mundos de jogo (components/worlds/engine/GameHud.tsx). */
 @keyframes level-up {
   0% {

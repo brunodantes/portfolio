@@ -312,7 +312,7 @@ function Structure({ kind }: { kind: Kind }) {
           </mesh>
           <mesh position={[0, 1.2, 0]}>
             <planeGeometry args={[1.65, 2.3]} />
-            <meshBasicMaterial color={ACCENT.clone().multiplyScalar(1.3)} transparent opacity={0.45} side={DoubleSide} toneMapped={false} />
+            <meshBasicMaterial color={ACCENT.clone().multiplyScalar(1.1)} transparent opacity={0.22} side={DoubleSide} toneMapped={false} depthWrite={false} />
           </mesh>
         </group>
       );
@@ -491,7 +491,11 @@ function ImpulseDecay() {
 
 const KEYS: CameraKey[] = [
   { pos: [-2, 17, 33], look: [0, 1, 4] },
-  ...ISLANDS.map((i): CameraKey => ({ pos: [i.x + 6.5, i.y + 5.8, i.z + 9.5], look: [i.x - 2.2, i.y + 1, i.z - 0.5] })),
+  ...ISLANDS.map((i): CameraKey => {
+    // A câmera do BTG sai do eixo da torre do Itaú, que ficava colada nela.
+    const [dx, dy, dz] = i.cam ?? [6.5, 5.8, 9.5];
+    return { pos: [i.x + dx, i.y + dy, i.z + dz], look: [i.x - 2.2, i.y + 1, i.z - 0.5] };
+  }),
 ];
 
 /** Estratégia: o arquipélago em tom sério, com névoa de guerra e uma unidade avançando pela campanha. */

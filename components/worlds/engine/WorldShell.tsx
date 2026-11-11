@@ -101,15 +101,17 @@ export default function WorldShell({ world }: { world: WorldConfig }) {
             id={chapter.id}
             data-chapter={index}
             aria-label={chapter.label}
-            className={`pointer-events-none flex min-h-[100svh] items-center px-4 py-24 sm:px-10 lg:px-16 ${alignClass[world.align[index] ?? "left"]}`}
+            className={`pointer-events-none flex min-h-[100svh] items-center px-4 pt-20 pb-28 sm:px-10 lg:px-16 ${alignClass[world.align[index] ?? "left"]}`}
           >
+            {/* Cartão: nunca mais alto que a tela (rola por dentro); invisível só enquanto inativo e sem foco. */}
             <div
-              className={`pointer-events-auto w-full max-w-[520px] ${
+              data-lenis-prevent
+              className={`world-card pointer-events-auto max-h-[calc(100svh-190px)] w-full max-w-[520px] overflow-y-auto overscroll-contain ${
                 world.cardMotion && motion
-                  ? `transition-[opacity,translate] duration-700 ease-[cubic-bezier(.16,1,.3,1)] ${
+                  ? `transition-[opacity,translate] duration-700 ease-[cubic-bezier(.16,1,.3,1)] focus-within:pointer-events-auto focus-within:translate-x-0 focus-within:opacity-100 ${
                       active === index
                         ? "translate-x-0 opacity-100"
-                        : `opacity-0 ${world.align[index] === "right" ? "translate-x-16" : "-translate-x-16"}`
+                        : `pointer-events-none opacity-0 ${world.align[index] === "right" ? "translate-x-16" : "-translate-x-16"}`
                     }`
                   : ""
               }`}
