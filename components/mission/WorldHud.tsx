@@ -1,5 +1,6 @@
 "use client";
 
+import { Activity } from "lucide-react";
 import { setPreferences, useContent, usePreferences } from "@/lib/preferences";
 import type { Chapter } from "./chapters";
 import { useActiveChapter } from "./journey";
@@ -15,10 +16,10 @@ export default function WorldHud({ world, chapters }: { world: WorldConfig; chap
   return (
     <>
       <header className={`fixed inset-x-0 top-0 z-30 flex items-center justify-between gap-4 px-4 py-3 sm:px-10 lg:px-16 ${hud.bar}`}>
-        <a href="#inicio" className={hud.brand}>
+        <a href="#inicio" className={`whitespace-nowrap ${hud.brand}`}>
           {player.name}
         </a>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 sm:gap-2">
           <div role="group" aria-label="Idioma / Language" className="flex">
             {(["pt", "en"] as const).map((l) => (
               <button
@@ -37,9 +38,12 @@ export default function WorldHud({ world, chapters }: { world: WorldConfig; chap
             role="switch"
             aria-checked={motion}
             onClick={() => setPreferences({ motion: !motion })}
+            aria-label={ui.motion}
             className={`cursor-pointer px-2 py-1 ${motion ? hud.itemActive : hud.item}`}
           >
-            {ui.motion}
+            {/* No celular, só o ícone (o nome vai no aria-label). */}
+            <Activity className="size-4 sm:hidden" aria-hidden />
+            <span className="hidden sm:inline">{ui.motion}</span>
           </button>
           <a href={player.resumeUrl} target="_blank" rel="noopener noreferrer" className={hud.button}>
             {ui.resumeBtn}

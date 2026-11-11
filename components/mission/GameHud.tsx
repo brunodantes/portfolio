@@ -26,7 +26,7 @@ export default function GameHud({ world, chapters }: { world: WorldConfig; chapt
   return (
     <>
       <div
-        className={`pointer-events-none fixed bottom-16 left-4 z-30 grid w-[220px] gap-1.5 px-3 py-2 sm:left-10 lg:bottom-4 lg:left-16 ${game.panel}`}
+        className={`pointer-events-none fixed bottom-4 left-4 z-30 hidden w-[220px] gap-1.5 px-3 py-2 sm:left-10 md:grid lg:left-16 ${game.panel}`}
         aria-hidden
       >
         <div className="truncate font-mono text-[11px] opacity-80">
