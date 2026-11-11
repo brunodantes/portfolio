@@ -167,3 +167,10 @@ O site atual continua em `/` (grupo `app/(classico)`); os mundos ficam em `/mund
 - [x] `/mundos/datacenter`: Sala de controle. Corredor de racks com LEDs, piso refletindo, servidor ejetado por empresa, lanterna no mouse, patch panel e terminal.
 - [x] `/mundos/jogo`: Mundo do jogo. Arquipélago de ilhas flutuantes, personagem-cubo pulando pelo caminho e pegando moedas, ilha de inventário e portal "Continue?", desfoque de maquete.
 - [ ] **Marco: escolher o mundo** (ou combinar ideias de mais de um). Depois: levar o escolhido para `/`, apagar os outros e retomar as fases 7–9 (SEO, qualidade, publicação).
+
+## Rodada 3 · Jogo com tom sério (pedido do Bruno: manter o mundo do jogo, mais sério)
+
+- [x] Interface de jogo comum (missões, conquistas, XP/nível, árvore de habilidades, minimapa).
+- [x] `/mundos/estrategia`: arquipélago noturno com névoa de guerra e unidade de cristal.
+- [ ] `/mundos/tatico`: mesa holográfica de operações (relevo em curvas de nível, rota de briefing, radar da stack).
+- [ ] `/mundos/orbital`: mapa orbital (empresas como planetas/estações, nave em transferência, constelação da stack, portal de dobra).
