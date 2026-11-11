@@ -1,6 +1,0 @@
-.typed-tail{white-space:nowrap}
-.typed-caret{
-  display:inline-block;width:0.56em;height:0.9em;margin-left:0.12em;vertical-align:-0.06em;
-  background:var(--accent);box-shadow:var(--glow-text-accent);
-  animation:ds-caret 1s steps(1,end) infinite;
-}

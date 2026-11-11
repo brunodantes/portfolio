@@ -1,9 +1,0 @@
-.tag{
-  display:inline-flex;align-items:center;gap:6px;
-  font-family:var(--font-mono);font-size:var(--fs-mono-sm);letter-spacing:0.08em;text-transform:uppercase;
-  padding:5px 10px;border-radius:var(--r-pill);border:var(--border-w) solid;
-  white-space:nowrap;
-}
-.tag--neutral{color:var(--text-body);border-color:var(--border-default);background:rgba(236,241,240,.03)}
-.tag--accent{color:var(--accent-ink);border-color:color-mix(in oklab,var(--green-500) 40%,transparent);background:var(--green-soft)}
-.tag--signal{color:var(--cyan-200);border-color:color-mix(in oklab,var(--cyan-500) 40%,transparent);background:var(--cyan-soft)}

@@ -1,0 +1,137 @@
+@import "tailwindcss";
+
+/*
+ * Tema oficial: Sala tática (mesa holográfica de operações). Escolhido em 10/11/2026, ver PLANO.md.
+ * Ciano holográfico para a interface, âmbar para a rota, a unidade e as ações.
+ * Componentes usam só os nomes semânticos abaixo (`bg-surface`, `text-accent`…), nunca hex solto.
+ * As cenas 3D têm as cores espelhadas em components/mission/tatico/TaticoScene.tsx.
+ */
+:root {
+  --p-deep: #02040a;
+  --p-bg: #03060c;
+  --p-surface: #040a14;
+  --p-raised: #0a1622;
+  --p-title: #f0fbff;
+  --p-body: #d6ecf7;
+  --p-soft: #b5d0dd;
+  --p-muted: #7fa6b8;
+  --p-faint: #3d5b6b;
+  --p-accent: #4cc9f0;
+  --p-accent-text: #9fdcf2;
+  --p-signal: #ffb347;
+  --p-signal-hover: #ffd08a;
+  --p-signal-text: #ffd59a;
+  --p-on-signal: #120a00;
+}
+
+@theme inline {
+  --font-display: var(--font-display-face), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-sans-face), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono-face), ui-monospace, SFMono-Regular, monospace;
+
+  --color-deep: var(--p-deep);
+  --color-bg: var(--p-bg);
+  --color-surface: var(--p-surface);
+  --color-raised: var(--p-raised);
+  --color-title: var(--p-title);
+  --color-body: var(--p-body);
+  --color-soft: var(--p-soft);
+  --color-muted: var(--p-muted);
+  --color-faint: var(--p-faint);
+  --color-accent: var(--p-accent);
+  --color-accent-text: var(--p-accent-text);
+  --color-signal: var(--p-signal);
+  --color-signal-hover: var(--p-signal-hover);
+  --color-signal-text: var(--p-signal-text);
+  --color-on-signal: var(--p-on-signal);
+}
+
+@layer base {
+  html {
+    background: var(--p-bg);
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--p-bg);
+    color: var(--p-body);
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--p-signal);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--p-accent) 40%, transparent);
+    color: var(--p-title);
+  }
+}
+
+/* "Movimento" desligado (preferência do site ou do sistema): sem animações em loop. */
+:root[data-motion="off"] *,
+:root[data-motion="off"] *::before,
+:root[data-motion="off"] *::after {
+  animation-play-state: paused !important;
+  transition-duration: 0.01ms !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Lenis (scroll suave) */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Cartões dos capítulos: barra de rolagem fina quando o conteúdo passa da altura da tela. */
+.world-card {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--p-accent) 35%, transparent) transparent;
+}
+
+/* Aviso de "subiu de nível" (components/mission/GameHud.tsx). */
+@keyframes level-up {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 8px);
+  }
+  15%,
+  70% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -6px);
+  }
+}
+.level-up {
+  opacity: 0;
+  animation: level-up 2.2s ease-out 1 both;
+}
