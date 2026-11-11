@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
-import { Bloom, DepthOfField, EffectComposer, ToneMapping, Vignette } from "@react-three/postprocessing";
+import { Bloom, EffectComposer, ToneMapping, Vignette } from "@react-three/postprocessing";
 import { ToneMappingMode } from "postprocessing";
 import {
   BackSide,
@@ -322,7 +322,7 @@ function Coins({ curves }: { curves: QuadraticBezierCurve3[] }) {
 }
 
 /** O personagem: um cubo com olhos que pula de pedra em pedra. */
-function Hero({ curves, focus }: { curves: QuadraticBezierCurve3[]; focus: Vector3 }) {
+function Hero({ curves }: { curves: QuadraticBezierCurve3[] }) {
   const root = useRef<Group>(null);
   const body = useRef<Mesh>(null);
   const tmp = useMemo(() => ({ p: new Vector3(), q: new Vector3() }), []);
@@ -351,7 +351,6 @@ function Hero({ curves, focus }: { curves: QuadraticBezierCurve3[]; focus: Vecto
       body.current.scale.set(1 - air * 0.12 + (1 - air) * 0.06, 1 + air * 0.2 - (1 - air) * 0.08, 1 - air * 0.12 + (1 - air) * 0.06);
       body.current.rotation.z = jump.current > 0 ? (1 - jump.current) * Math.PI * 2 : 0;
     }
-    focus.copy(g.position);
   });
 
   return (
@@ -458,11 +457,9 @@ function Clouds() {
   );
 }
 
-function Effects({ focus }: { focus: Vector3 }) {
+function Effects() {
   return (
     <EffectComposer multisampling={0}>
-      {/* Desfoque de profundidade no personagem: o mundo vira uma maquete. */}
-      <DepthOfField target={focus} focalLength={0.12} bokehScale={1.8} height={480} />
       <Bloom mipmapBlur luminanceThreshold={0.9} luminanceSmoothing={0.25} intensity={0.75} radius={0.6} />
       <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
       <Vignette darkness={0.5} offset={0.3} />
@@ -488,7 +485,6 @@ const KEYS: CameraKey[] = [
 /** Mundo "Mundo do jogo": a carreira como um mapa de fases em ilhas flutuantes. */
 export default function JogoScene(props: WorldSceneProps) {
   const curves = useMemo(() => ISLANDS.slice(0, -1).map((_, i) => segment(i)), []);
-  const focus = useMemo(() => new Vector3(), []);
 
   useEffect(() => {
     const el = props.eventSource.current;
@@ -504,7 +500,7 @@ export default function JogoScene(props: WorldSceneProps) {
   return (
     <WorldCanvas {...props} background="#140c33" fov={40} shadows>
       <ImpulseDecay />
-      <fog attach="fog" args={["#4a2477", 30, 90]} />
+      <fog attach="fog" args={["#4a2477", 45, 130]} />
       <Sky />
       <Stars />
       <hemisphereLight args={["#ffb3d1", "#2a1a4a", 0.9]} />
@@ -528,8 +524,8 @@ export default function JogoScene(props: WorldSceneProps) {
       <Coins curves={curves} />
       <Inventory />
       <Portal />
-      <Hero curves={curves} focus={focus} />
-      {!props.device.low && <Effects focus={focus} />}
+      <Hero curves={curves} />
+      {!props.device.low && <Effects />}
     </WorldCanvas>
   );
 }
