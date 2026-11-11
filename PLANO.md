@@ -197,6 +197,6 @@ Pedido do Bruno: fechar o projeto só com a Sala tática e buscar melhorias visu
 - [x] Qualidade: testes de fumaça com Playwright (desktop e celular) e CI no GitHub Actions.
 - [ ] Revisar os textos novos em `lib/site-data.ts`: conquistas de cada experiência e rótulos da interface.
 - [ ] Conferir "9 anos": de Dez/2016 a Nov/2026 já são quase 10 (o site diz "mais de 9" e LV 09).
-- [ ] Publicar na Vercel (preview por branch) e definir `NEXT_PUBLIC_SITE_URL`; depois, domínio próprio.
+- [x] Publicado na Vercel em produção (10/11/2026): https://bdalme-portfolio.vercel.app, no projeto `portifolio` (antes Vite em `app/`, agora Next.js na raiz), com `NEXT_PUBLIC_SITE_URL` definido. Domínio próprio: a definir.
 - [ ] Ativar Vercel Web Analytics / Speed Insights e medir o Lighthouse mobile depois do deploy.
 - [ ] Juntar `feat/mundos-3d` na `master` depois do preview aprovado.
